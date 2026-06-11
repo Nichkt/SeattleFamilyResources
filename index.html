@@ -242,8 +242,11 @@
   .card h3 a{ color:var(--ink); text-decoration:none; }
   .card h3 a:hover{ color:var(--brand); }
   .card p{ margin:0 0 12px; color:var(--ink-soft); font-size:.94rem; }
-  .card .meta{ margin-top:auto; font-size:.84rem; display:flex; flex-direction:column; gap:3px; }
-  .card .meta .u{ color:var(--brand); word-break:break-word; }
+  .card .meta{ margin-top:auto; font-size:.84rem; display:flex; flex-flow:row wrap; align-items:baseline; column-gap:12px; row-gap:2px; }
+  .card .meta .u{ color:var(--brand); word-break:break-word; text-decoration:none; }
+  .card .meta a.u:hover{ text-decoration:underline; }
+  .card.clickable{ cursor:pointer; }
+  .card.clickable:hover h3 a{ text-decoration:underline; }
   .card .meta .phone{ font-weight:700; color:var(--ink); }
 
   /* Callout, table, pills */
@@ -290,7 +293,7 @@
   section.block{ padding:68px 0 62px; }
   section.block:nth-of-type(even){ background:var(--surface2); }
   section.block > .wrap > h2{ margin-bottom:4px; }
-  section.block > .wrap > p.lead{ max-width:62ch; font-size:1.04rem; margin-bottom:30px; }
+  section.block > .wrap > p.lead{ max-width:none; font-size:1.04rem; margin-bottom:30px; }
 
   /* Hero */
   .hero-inner{ padding:84px 20px 104px; }
@@ -930,6 +933,7 @@
       <div class="card"><h3><a href="https://www.rescue.org/united-states/seattle-wa">International Rescue Committee, Seattle</a></h3><p>Resettlement, and the support of the family, for the refugee and immigrant of the Seattle country.</p><div class="meta"><span class="u">rescue.org</span><span class="phone">206-623-2105</span></div></div>
       <div class="card"><h3><a href="https://openarmsps.org">Open Arms Perinatal Services</a></h3><p>Free doulas matched to your own culture, and lactation support, for the birthing family.</p><div class="meta"><span class="u">openarmsps.org</span><span class="phone">206-723-6868</span></div></div>
       <div class="card"><h3><a href="https://www.iacswa.org">Indian American Community Services</a></h3><p>Multicultural family programs, and care in crisis, for the Indian American family (Bellevue).</p><div class="meta"><span class="u">iacswa.org</span><span class="phone">425-615-7270</span></div></div>
+      <div class="card"><h3><a href="https://acrs.org/">Asian Counseling and Referral Service (ACRS)</a></h3><p>Multilingual counseling, family, and basic-needs services for Asian and Pacific Islander communities across King County.</p><div class="meta"><span class="u">acrs.org</span><span class="phone">(206) 695-7600</span></div></div>
     </div>
   </div>
 </section>
@@ -1160,6 +1164,10 @@
       <div class="card"><h3><a href="https://www.parentmap.com/calendar/kirkland-summer-concerts-evening-series">Kirkland Summer Concerts</a></h3><p>Free Thursday-evening concerts at Kirkland's Marina Park, the whole summer long.</p><div class="meta"><span class="u">parentmap.com</span></div></div>
       <div class="card"><h3><a href="https://www.bellevuedowntown.com/events">Downtown Bellevue, Live at Lunch</a></h3><p>Free midday summer concerts in the heart of Bellevue, and the Bellevue Family 4th and the arts events besides.</p><div class="meta"><span class="u">bellevuedowntown.com</span></div></div>
       <div class="card"><h3><a href="https://www.greaterseattleonthecheap.com/summer-music-seattle/">Free Summer Concerts, Regional List</a></h3><p>A great, often-updated gathering of the free outdoor concert series across Seattle and the Eastside (Bellevue, Kirkland, Renton and more).</p><div class="meta"><span class="u">greaterseattleonthecheap.com</span></div></div>
+      <div class="card"><h3><a href="https://astro.washington.edu/astronomy-tap">Astronomy on Tap, Seattle</a></h3><p>Free astronomy talks with trivia at a local brewery, run monthly by UW grad students.</p><div class="meta"><span class="u">astro.washington.edu/astronomy-tap</span></div></div>
+      <div class="card"><h3><a href="https://www.eventbrite.com/o/uw-astronomy-outreach-8618644131">UW Jacobsen Observatory Open Houses</a></h3><p>Free public telescope viewing and short talks on the UW campus, most months spring through fall.</p><div class="meta"><span class="u">UW Astronomy Outreach (Eventbrite)</span></div></div>
+      <div class="card"><h3><a href="https://www.engage-science.space">UW Science Now (Engage)</a></h3><p>UW grad students present their research to a general audience at Town Hall Seattle.</p><div class="meta"><span class="u">engage-science.space</span></div></div>
+      <div class="card"><h3><a href="https://alleninstitute.org/events">Allen Institute Events</a></h3><p>Public brain-science lectures, symposia, and the annual BrainFest at Pacific Science Center.</p><div class="meta"><span class="u">alleninstitute.org/events</span></div></div>
     </div>
   </div>
 </section>
@@ -1418,6 +1426,32 @@
     }
     animate(resEl, resTarget);
     animate(catEl, catCount);
+  })();
+
+  /* ---- Make each resource card fully clickable + linkify its address ---- */
+  (function () {
+    var cards = document.querySelectorAll('section.block .card');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        var link = card.querySelector('h3 a[href]');
+        if (!link) { return; }
+        var href = link.getAttribute('href');
+        var u = card.querySelector('.meta .u');
+        if (u && u.tagName !== 'A') {
+          var a = document.createElement('a');
+          a.className = 'u';
+          a.setAttribute('href', href);
+          a.setAttribute('rel', 'noopener');
+          a.textContent = u.textContent;
+          u.parentNode.replaceChild(a, u);
+        }
+        card.classList.add('clickable');
+        card.addEventListener('click', function (e) {
+          if (e.target.closest && e.target.closest('a')) { return; }
+          link.click();
+        });
+      })(cards[i]);
+    }
   })();
 
 </script>
