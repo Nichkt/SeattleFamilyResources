@@ -1,0 +1,1426 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Seattle Family Resources, Parenting Support, Prenatal to College</title>
+<style>
+  :root {
+    --bg: #f6f8fb;
+    --surface: #ffffff;
+    --surface-2: #eef3f9;
+    --ink: #1d2430;
+    --ink-soft: #4a5568;
+    --accent: #1f6f8b;
+    --accent-2: #2c9b6e;
+    --accent-3: #b5532a;
+    --line: #dde4ec;
+    --shadow: 0 1px 3px rgba(20,40,70,.08), 0 6px 20px rgba(20,40,70,.06);
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #11161d;
+      --surface: #1a212b;
+      --surface-2: #212a36;
+      --ink: #eef2f7;
+      --ink-soft: #aab6c4;
+      --accent: #5fb6cf;
+      --accent-2: #5bd0a0;
+      --accent-3: #e08a63;
+      --line: #2b3543;
+      --shadow: 0 1px 3px rgba(0,0,0,.4), 0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 1080px; margin-inline: auto; padding-inline: 20px; }
+
+  /* Header */
+  header.hero {
+    background: linear-gradient(135deg, #1f6f8b 0%, #2c9b6e 55%, #3a7d5d 100%);
+    color: #fff;
+    padding: 56px 0 44px;
+  }
+  header.hero .wrap { text-align: center; }
+  header.hero h1 { font-size: clamp(1.8rem, 4vw, 2.7rem); margin: 0 0 10px; line-height: 1.15; }
+  header.hero p.sub { font-size: 1.12rem; max-width: 640px; margin: 0 auto; opacity: .95; }
+  .badge-row { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .badge { background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.35);
+           padding: 7px 14px; border-radius: 999px; font-size: .92rem; font-weight: 600;
+           color: #fff; text-decoration: none; display: inline-block; cursor: pointer; transition: background .15s; }
+  a.badge:hover { background: rgba(255,255,255,.32); }
+
+  /* Nav */
+  nav.toc { position: sticky; top: 0; z-index: 30; background: var(--surface);
+            border-bottom: 1px solid var(--line); box-shadow: var(--shadow); }
+  .navbar { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; justify-content: center;
+            max-width: 1080px; margin-inline: auto; padding: 8px 20px; }
+  .nav-help { background: var(--accent-3); color: #fff; text-decoration: none; font-weight: 700;
+              font-size: .9rem; padding: 8px 14px; border-radius: 8px; }
+  .nav-help:hover { filter: brightness(1.08); }
+  .navgroup { position: relative; }
+  .navbtn { background: transparent; border: none; color: var(--ink-soft); font-weight: 600;
+            font-size: .92rem; font-family: inherit; padding: 8px 12px; border-radius: 8px;
+            cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+  .navbtn:hover, .navgroup.open .navbtn { background: var(--surface-2); color: var(--accent); }
+  .navbtn .caret { font-size: .7rem; transition: transform .15s; }
+  .navgroup.open .navbtn .caret { transform: rotate(180deg); }
+  .navmenu { position: absolute; top: 100%; inset-inline-start: 50%; transform: translateX(-50%);
+             min-width: 215px; background: var(--surface); border: 1px solid var(--line);
+             border-radius: 12px; box-shadow: var(--shadow); padding: 6px; display: none; z-index: 40; }
+  .navgroup.open .navmenu { display: block; }
+  .navmenu a { display: block; padding: 8px 12px; border-radius: 8px; text-decoration: none;
+               color: var(--ink); font-size: .9rem; font-weight: 500; white-space: nowrap; }
+  .navmenu a:hover { background: var(--surface-2); color: var(--accent); }
+  @media (max-width: 640px) {
+    .navmenu { position: static; transform: none; min-width: 0; box-shadow: none;
+               border: none; padding: 2px 0 6px 14px; }
+  }
+
+  section.block { padding: 46px 0 8px; }
+  section.block > .wrap > h2 { font-size: 1.7rem; margin: 0 0 6px; display: flex; align-items: center; gap: 10px; }
+  section.block > .wrap > p.lead { color: var(--ink-soft); margin: 0 0 22px; max-width: 760px; }
+  .stage-tag { font-size: .8rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+               color: var(--accent-2); }
+
+  /* Cards */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+          padding: 18px 18px 16px; box-shadow: var(--shadow); display: flex; flex-direction: column; }
+  .card h3 { margin: 0 0 6px; font-size: 1.08rem; line-height: 1.3; }
+  .card h3 a { text-decoration: none; }
+  .card h3 a:hover { text-decoration: underline; }
+  .card p { margin: 0 0 10px; color: var(--ink-soft); font-size: .95rem; }
+  .card .meta { margin-top: auto; font-size: .86rem; color: var(--ink); display: flex; flex-direction: column; gap: 3px; }
+  .card .meta .u { color: var(--accent); word-break: break-all; }
+  .card .meta .phone { font-weight: 700; }
+
+  /* Emergency callout */
+  .callout { background: var(--surface-2); border: 1px solid var(--line); border-inline-start: 5px solid var(--accent-3);
+             border-radius: var(--radius); padding: 18px 20px; margin: 8px 0 0; }
+  .callout h2 { margin: 0 0 10px; font-size: 1.25rem; }
+  .callout ul { margin: 0; padding-inline-start: 18px; }
+  .callout li { margin-bottom: 6px; }
+  .callout strong { color: var(--ink); }
+
+  /* Table */
+  .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+  table { border-collapse: collapse; width: 100%; min-width: 600px; background: var(--surface); }
+  th, td { text-align: start; padding: 11px 14px; border-bottom: 1px solid var(--line); font-size: .94rem; vertical-align: top; }
+  thead th { background: var(--surface-2); color: var(--ink); font-weight: 700; position: sticky; top: 0; }
+  tbody tr:last-child td { border-bottom: none; }
+  .pill { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: .78rem; font-weight: 700; }
+  .pill.free { background: rgba(44,155,110,.16); color: var(--accent-2); }
+  .pill.fee { background: rgba(181,83,42,.16); color: var(--accent-3); }
+
+  /* Filter */
+  .filter-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 18px; }
+  .filter-row input { flex: 1 1 240px; padding: 10px 14px; border: 1px solid var(--line);
+                      border-radius: 10px; background: var(--surface); color: var(--ink); font-size: .95rem; }
+  .count { font-size: .85rem; color: var(--ink-soft); }
+
+  footer { margin-top: 50px; background: var(--surface); border-top: 1px solid var(--line); padding: 30px 0 40px; }
+  footer .wrap { color: var(--ink-soft); font-size: .9rem; }
+  footer h2 { color: var(--ink); font-size: 1.05rem; margin: 0 0 8px; }
+  .disclaimer { background: var(--surface-2); border-radius: var(--radius); padding: 14px 16px; margin-top: 14px; }
+  code { background: var(--surface-2); padding: 1px 6px; border-radius: 6px; font-size: .88em; }
+  /* Suggest-a-resource form */
+  .form-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+               padding: 22px; box-shadow: var(--shadow); max-width: 720px; }
+  .form-card label { display: block; font-weight: 600; font-size: .92rem; margin: 14px 0 5px; }
+  .form-card input, .form-card select, .form-card textarea {
+    width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px;
+    background: var(--bg); color: var(--ink); font-size: .95rem; font-family: inherit;
+  }
+  .form-card textarea { min-height: 96px; resize: vertical; }
+  .req { color: var(--accent-3); }
+  .btn { display: inline-block; margin-top: 18px; background: var(--accent); color: #fff; border: none;
+         padding: 11px 20px; border-radius: 10px; font-size: .98rem; font-weight: 700; cursor: pointer; text-decoration: none; }
+  .btn:hover { filter: brightness(1.07); }
+  .form-error { color: var(--accent-3); font-size: .9rem; margin-top: 10px; font-weight: 600; }
+  .form-result { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 18px; }
+  .form-result textarea { width: 100%; min-height: 150px; margin-top: 8px; font-family: ui-monospace, "Cascadia Code", monospace; font-size: .85rem; }
+  .hidden { display: none !important; }
+</style>
+<style>
+  /* ===== Interactive design system (overrides the base styles above) ===== */
+  :root{
+    --maxw:1100px; --r:18px;
+    --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+    /* Soft, warm, family-friendly traditional palette */
+    --bg:#fbf6ec; --bg2:#f2e9d8;
+    --surface:#fffdf9; --surface2:#f7f0e4;
+    --ink:#3d372f; --ink-soft:#726a5e; --line:#e8dfcf;
+    --brand:#5f8c7b; --brand2:#86b0a0; --accent:#c08763; --accent2:#d8b871;
+    --grad: linear-gradient(125deg,#5b8c7b 0%,#7da99a 45%,#c2a983 100%);
+    --shadow: 0 1px 2px rgba(90,70,45,.06), 0 10px 26px rgba(90,70,45,.08);
+    --shadow-lg: 0 22px 48px rgba(90,70,45,.18);
+  }
+
+  body{ font-family:"Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+        color:var(--ink); background:linear-gradient(180deg,var(--bg),var(--bg2)); background-attachment:fixed; }
+  .wrap{ max-width:var(--maxw); margin-inline:auto; padding-inline:20px; }
+  section.block{ scroll-margin-top:70px; }
+  :target{ scroll-margin-top:70px; }
+
+  /* Hero */
+  header.hero{ position:relative; overflow:hidden; color:#fff; padding:0; isolation:isolate; }
+  header.hero .hero-bg{ position:absolute; inset:0; z-index:-1;
+    background:
+      radial-gradient(38% 55% at 12% 18%, rgba(255,255,255,.28), transparent 60%),
+      radial-gradient(45% 65% at 88% 12%, var(--brand2), transparent 60%),
+      radial-gradient(55% 75% at 78% 92%, var(--accent), transparent 55%),
+      var(--grad);
+    background-size:200% 200%; animation:heroDrift 20s ease-in-out infinite; }
+  @keyframes heroDrift{ 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+  .hero-inner{ padding:66px 20px 58px; text-align:center; }
+  .kicker{ letter-spacing:.2em; text-transform:uppercase; font-size:.78rem; font-weight:700; opacity:.92; margin:0 0 12px; }
+  header.hero h1{ font-family:var(--font-display); font-weight:700; font-size:clamp(2.1rem,5.6vw,3.7rem);
+    line-height:1.04; margin:0 0 14px; text-shadow:0 2px 24px rgba(0,0,0,.18); }
+  header.hero .sub{ max-width:650px; margin:0 auto 24px; font-size:1.12rem; opacity:.96; }
+  .hero-search{ position:relative; max-width:570px; margin:0 auto 26px; display:flex; align-items:center; }
+  .hero-search input{ width:100%; padding:15px 110px 15px 20px; border:none; border-radius:999px;
+    font-size:1rem; font-family:inherit; color:#23262b; background:rgba(255,255,255,.96);
+    box-shadow:0 12px 34px rgba(0,0,0,.2); }
+  .hero-search input::placeholder{ color:#7a828d; }
+  .hero-search input:focus{ outline:3px solid rgba(255,255,255,.65); }
+  .search-count{ position:absolute; right:20px; font-size:.8rem; color:#5c6470; pointer-events:none; }
+  .stats{ display:flex; gap:30px; justify-content:center; flex-wrap:wrap; margin:0 0 24px; }
+  .stat{ display:flex; flex-direction:column; align-items:center; min-width:84px; }
+  .stat .num{ font-family:var(--font-display); font-size:1.95rem; font-weight:700; line-height:1; }
+  .stat .lbl{ font-size:.74rem; text-transform:uppercase; letter-spacing:.09em; opacity:.92; margin-top:5px; }
+  .badge-row{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+  .badge{ background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.42); color:#fff;
+    text-decoration:none; display:inline-block; padding:8px 16px; border-radius:999px; font-size:.9rem;
+    font-weight:600; transition:transform .15s, background .15s; }
+  a.badge:hover{ background:rgba(255,255,255,.32); transform:translateY(-2px); }
+
+  /* Sticky glass nav */
+  nav.toc{ position:sticky; top:0; z-index:50; background:var(--surface); border-bottom:1px solid var(--line); box-shadow:var(--shadow); }
+  @supports ((backdrop-filter:blur(8px)) or (-webkit-backdrop-filter:blur(8px))){
+    nav.toc{ background:transparent; -webkit-backdrop-filter:saturate(1.5) blur(12px); backdrop-filter:saturate(1.5) blur(12px); }
+    nav.toc::before{ content:""; position:absolute; inset:0; background:var(--surface); opacity:.82; z-index:-1; }
+  }
+  .navbar{ display:flex; flex-wrap:wrap; gap:4px; align-items:center; justify-content:center; max-width:var(--maxw); margin-inline:auto; padding:8px 20px; }
+  .navbtn{ color:var(--ink-soft); }
+  .navbtn:hover, .navgroup.open .navbtn{ background:var(--surface2); color:var(--brand); }
+  .navmenu{ background:var(--surface); border-color:var(--line); }
+  .navmenu a{ color:var(--ink); }
+  .navmenu a:hover{ background:var(--surface2); color:var(--brand); }
+  .nav-help{ background:var(--accent); }
+
+  /* Section reveal + headers */
+  .js section.block.reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .js section.block.reveal.in{ opacity:1; transform:none; }
+  section.block > .wrap > h2{ font-family:var(--font-display); font-weight:700; font-size:clamp(1.55rem,3vw,2.05rem);
+    display:flex; align-items:center; gap:12px; margin:0 0 6px; letter-spacing:-.01em; color:var(--ink); }
+  section.block > .wrap > h2::before{ content:""; width:9px; height:30px; border-radius:6px; background:var(--grad); flex:0 0 auto; }
+  .stage-tag{ display:inline-block; background:var(--surface2); color:var(--brand); padding:5px 12px;
+    border-radius:999px; font-size:.73rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; margin-bottom:10px; }
+  section.block > .wrap > p.lead{ color:var(--ink-soft); }
+
+  /* Cards */
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:18px; }
+  .card{ position:relative; background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+    padding:20px; box-shadow:var(--shadow); display:flex; flex-direction:column; overflow:hidden;
+    transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
+  .card::before{ content:""; position:absolute; inset:0 0 auto 0; height:4px; background:var(--grad);
+    transform:scaleX(0); transform-origin:left; transition:transform .28s ease; }
+  .card:hover{ transform:translateY(-5px); box-shadow:var(--shadow-lg); border-color:transparent; }
+  .card:hover::before{ transform:scaleX(1); }
+  .card h3{ margin:0 0 8px; font-size:1.06rem; line-height:1.3; }
+  .card h3 a{ color:var(--ink); text-decoration:none; }
+  .card h3 a:hover{ color:var(--brand); }
+  .card p{ margin:0 0 12px; color:var(--ink-soft); font-size:.94rem; }
+  .card .meta{ margin-top:auto; font-size:.84rem; display:flex; flex-direction:column; gap:3px; }
+  .card .meta .u{ color:var(--brand); word-break:break-word; }
+  .card .meta .phone{ font-weight:700; color:var(--ink); }
+
+  /* Callout, table, pills */
+  .callout{ background:var(--surface2); border:1px solid var(--line); border-inline-start:5px solid var(--accent); border-radius:var(--r); }
+  .table-scroll{ border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow); }
+  table{ background:var(--surface); }
+  thead th{ background:var(--surface2); color:var(--ink); }
+  th,td{ border-bottom:1px solid var(--line); color:var(--ink); }
+  .pill.free{ background:color-mix(in srgb, var(--brand2) 22%, transparent); color:var(--brand); }
+
+  /* Form */
+  .form-card{ background:var(--surface); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow); }
+  .form-card input, .form-card select, .form-card textarea{ background:var(--bg); color:var(--ink); border-color:var(--line); }
+  .btn{ background:var(--brand); }
+
+  /* Filter row (org table) */
+  .filter-row input{ background:var(--surface); color:var(--ink); border-color:var(--line); }
+
+  /* Footer */
+  footer{ background:var(--surface); border-top:1px solid var(--line); }
+  .disclaimer{ background:var(--surface2); border-radius:var(--r); }
+
+  /* Scroll progress + back to top */
+  .progress{ position:fixed; top:0; left:0; height:3px; width:0; background:var(--grad); z-index:100; transition:width .08s linear; }
+  .to-top{ position:fixed; right:18px; bottom:18px; width:48px; height:48px; border-radius:50%; background:var(--grad);
+    color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.35rem; text-decoration:none;
+    box-shadow:var(--shadow-lg); opacity:0; transform:translateY(12px) scale(.9); pointer-events:none;
+    transition:opacity .25s, transform .25s; z-index:90; }
+  .to-top.show{ opacity:1; transform:none; pointer-events:auto; }
+
+  .is-hidden{ display:none !important; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+    .js section.block.reveal{ opacity:1 !important; transform:none !important; }
+    header.hero .hero-bg{ animation:none; }
+  }
+</style>
+<style>
+  /* ===== Showcase polish (OnePageLove-grade) ===== */
+  body{ line-height:1.65; }
+
+  /* Vertical rhythm + alternating warm bands */
+  section.block{ padding:68px 0 62px; }
+  section.block:nth-of-type(even){ background:var(--surface2); }
+  section.block > .wrap > h2{ margin-bottom:4px; }
+  section.block > .wrap > p.lead{ max-width:62ch; font-size:1.04rem; margin-bottom:30px; }
+
+  /* Hero */
+  .hero-inner{ padding:84px 20px 104px; }
+  header.hero .sub{ font-size:1.16rem; }
+  .hero-wave{ position:absolute; left:0; bottom:-1px; width:100%; height:64px; display:block; z-index:1; }
+  .hero-wave path{ fill:var(--bg); }
+
+  /* Nav */
+  .navbar{ padding:10px 20px; }
+
+  /* Cards */
+  .grid{ gap:20px; }
+  .card{ padding:22px; }
+
+  /* Get Help callout */
+  .callout{ padding:24px 26px; box-shadow:var(--shadow); }
+  .callout h2{ font-family:var(--font-display); }
+
+  /* Tables */
+  th, td{ padding:12px 15px; }
+  td:first-child{ font-weight:600; color:var(--ink); }
+  tbody tr:nth-child(even){ background:var(--surface2); }
+
+  /* Suggest form */
+  #suggest .form-card{ padding:26px; }
+
+  /* Footer as a designed block */
+  footer{ position:relative; padding:48px 0 56px; }
+  footer::before{ content:""; position:absolute; top:0; left:0; right:0; height:4px; background:var(--grad); }
+  footer h2{ font-family:var(--font-display); font-size:1.25rem; color:var(--ink); }
+
+  /* Crisp, accessible focus rings */
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
+    outline:3px solid var(--brand2); outline-offset:2px; border-radius:6px;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+<a class="to-top" id="toTop" href="#top" aria-label="Back to top">↑</a>
+
+<header class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <p class="kicker">Seattle · Bellevue · Kirkland · Renton</p>
+    <h1>Seattle Family Resources</h1>
+    <p class="sub">A free, plain-language guide to parenting around the Puget Sound, from your first prenatal appointment to college drop-off.</p>
+    <div class="stats">
+      <div class="stat"><span class="num" id="stat-res">0</span><span class="lbl">resources</span></div>
+      <div class="stat"><span class="num" id="stat-cat">0</span><span class="lbl">categories</span></div>
+      <div class="stat"><span class="num">100%</span><span class="lbl">free to use</span></div>
+    </div>
+    <div class="badge-row">
+      <a class="badge" href="#prenatal">Prenatal</a>
+      <a class="badge" href="#early">Baby &amp; Toddler</a>
+      <a class="badge" href="#school">School Age</a>
+      <a class="badge" href="#teen">Teens &amp; College</a>
+    </div>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0,32 C240,72 480,8 720,28 C960,48 1200,72 1440,34 L1440,70 L0,70 Z"></path></svg>
+</header>
+
+<nav class="toc" aria-label="Section navigation">
+  <div class="navbar">
+    <a class="nav-help" href="#help">Get Help Now</a>
+
+    <div class="navgroup">
+      <button class="navbtn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="m-stage">By Life Stage <span class="caret">▾</span></button>
+      <div class="navmenu" id="m-stage" role="menu">
+        <a href="#prenatal" role="menuitem">Prenatal &amp; Pregnancy</a>
+        <a href="#early" role="menuitem">Baby &amp; Toddler</a>
+        <a href="#childcare" role="menuitem">Childcare &amp; Preschool</a>
+        <a href="#school" role="menuitem">School Age (K–12)</a>
+        <a href="#teen" role="menuitem">Teens &amp; College</a>
+      </div>
+    </div>
+
+    <div class="navgroup">
+      <button class="navbtn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="m-health">Health &amp; Wellbeing <span class="caret">▾</span></button>
+      <div class="navmenu" id="m-health" role="menu">
+        <a href="#health" role="menuitem">Health &amp; Medical</a>
+        <a href="#specialneeds" role="menuitem">Special Needs</a>
+        <a href="#support" role="menuitem">Parent Support</a>
+      </div>
+    </div>
+
+    <div class="navgroup">
+      <button class="navbtn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="m-essentials">Safety &amp; Essentials <span class="caret">▾</span></button>
+      <div class="navmenu" id="m-essentials" role="menu">
+        <a href="#safety" role="menuitem">Safety &amp; Crisis</a>
+        <a href="#food" role="menuitem">Food &amp; Basic Needs</a>
+        <a href="#money" role="menuitem">Money &amp; Practical</a>
+      </div>
+    </div>
+
+    <div class="navgroup">
+      <button class="navbtn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="m-community">Community &amp; Learning <span class="caret">▾</span></button>
+      <div class="navmenu" id="m-community" role="menu">
+        <a href="#cultural" role="menuitem">Cultural &amp; Multilingual</a>
+        <a href="#families" role="menuitem">Family Types</a>
+        <a href="#learning" role="menuitem">Learning &amp; Enrichment</a>
+        <a href="#youth" role="menuitem">Youth Programs</a>
+        <a href="#cities" role="menuitem">By City: Parks &amp; Schools</a>
+      </div>
+    </div>
+
+    <div class="navgroup">
+      <button class="navbtn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="m-explore">Explore <span class="caret">▾</span></button>
+      <div class="navmenu" id="m-explore" role="menu">
+        <a href="#orgs" role="menuitem">Organizations</a>
+        <a href="#events" role="menuitem">Event Calendar</a>
+        <a href="#fun" role="menuitem">Things to Do</a>
+        <a href="#free" role="menuitem">Free Family Fun</a>
+        <a href="#culture" role="menuitem">Free Concerts &amp; Lectures</a>
+        <a href="#museums" role="menuitem">Museums &amp; Attractions</a>
+        <a href="#nature" role="menuitem">Parks &amp; Nature</a>
+        <a href="#suggest" role="menuitem">Suggest a Resource</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- GET HELP NOW -->
+<section class="block" id="help">
+  <div class="wrap">
+    <h2>Get Help Now</h2>
+    <p class="lead">Free, confidential support and crisis lines, answered by real people across Washington.</p>
+    <div class="callout">
+      <h2>You can talk to someone right now</h2>
+      <ul>
+        <li><strong>988 Suicide &amp; Crisis Lifeline</strong>, call or text <strong>988</strong>, 24/7, for any mental-health crisis (kids, teens, and adults).</li>
+        <li><strong>Help Me Grow Washington Hotline</strong>, <strong>1-800-322-2588</strong>. Family Resource Navigators help you find food, health, child-development, and pregnancy support.</li>
+        <li><strong>Parent Trust Family Help Line</strong>, <strong>1-800-932-4673</strong> (1-800-932-HOPE). Live parenting coaches, Mon–Fri 9am–5pm; recorded resource line 24/7.</li>
+        <li><strong>Perinatal Support Washington Warm Line</strong>, <strong>1-888-404-7763</strong>. Support for pregnancy, postpartum mood changes, and loss. Se habla español.</li>
+        <li><strong>WA Mental Health Referral Service for Children &amp; Teens</strong>, connects families with providers who accept your insurance (children 17 and under; teens 13–17 may call for themselves).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PRENATAL -->
+<section class="block" id="prenatal">
+  <div class="wrap">
+    <span class="stage-tag">Stage 1 · Pregnancy &amp; Birth</span>
+    <h2>Prenatal &amp; Pregnancy</h2>
+    <p class="lead">Prenatal care, classes, doulas, supplies, and emotional support, much of it free or billed to Apple Health.</p>
+    <div class="grid">
+
+      <div class="card">
+        <h3><a href="https://helpmegrowwa.org/pregnancy-birth">Help Me Grow Washington, Pregnancy + Birth</a></h3>
+        <p>It is the hand that reaches first, drawing you toward prenatal care and pregnancy supplies, toward childbirth classes and WIC and the steadying of the mind; and through the ParentHelp123 Resource Finder you may search out, community by community, whatever your own corner holds.</p>
+        <div class="meta"><span class="u">helpmegrowwa.org/pregnancy-birth</span><span class="phone">1-800-322-2588</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://perinatalsupport.org/for-parents/">Perinatal Support Washington</a></h3>
+        <p>A warm line and the company of others who have gone before, online therapy, and a searchable roll of doulas and therapists and lactation consultants, kept for the whole long reproductive season, conception to afterward.</p>
+        <div class="meta"><span class="u">perinatalsupport.org/for-parents</span><span class="phone">1-888-404-7763</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://kingcounty.gov/en/dept/dph/health-safety/health-centers-programs-services/maternity-support-wic/family-ways">King County First Steps &amp; Family Ways</a></h3>
+        <p>Public-health nurses and nutritionists and social workers tend the pregnancy and the first years that come after it; the Nurse-Family Partnership sets a nurse beside the first-time parent and will not leave; it bills Apple Health, and asks nothing of you.</p>
+        <div class="meta"><span class="u">kingcounty.gov → Family Ways</span><span class="phone">(206) 477-6950</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.parenttrust.org/">Parent Trust for Washington Children</a></h3>
+        <p>Classes for the new parent and the seasoned alike, pregnancy, childbirth, the keeping of a baby, and, threaded through all of it, the statewide Family Help Line that is always there to be called.</p>
+        <div class="meta"><span class="u">parenttrust.org</span><span class="phone">1-800-932-4673</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.stepbystepfamily.org/programs">Step By Step Family Support Center</a></h3>
+        <p>It comes to you, into the house itself, for families on Apple Health across King and the counties near it, nurses and counselors and dietitians, the baby's necessaries, and a mentor to walk the parent through.</p>
+        <div class="meta"><span class="u">stepbystepfamily.org/programs</span><span class="phone">(253) 896-0903</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://withinreachwa.org/contact-us">WithinReach / ParentHelp123</a></h3>
+        <p>It helps a Washington family lay claim to what is theirs, WIC, Apple Health, the food benefits, and through the ParentHelp123 Resource Finder binds them to the services nearest home.</p>
+        <div class="meta"><span class="u">withinreachwa.org</span><span class="phone">(206) 284-2465</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EARLY CHILDHOOD -->
+<section class="block" id="early">
+  <div class="wrap">
+    <span class="stage-tag">Stage 2 · Birth to Age 5</span>
+    <h2>Baby &amp; Toddler</h2>
+    <p class="lead">Playgroups, story times, screenings, and child-care help for the baby and toddler years.</p>
+    <div class="grid">
+
+      <div class="card">
+        <h3><a href="https://deniselouie.org/services/play-learn/">Denise Louie, Kaleidoscope Play &amp; Learn</a></h3>
+        <p>Free drop-in play groups for the very young (birth–age 5): the loose hour of play, the circle time, the counsel for the grown; held in the libraries at Rainier Beach and Lake City, Northgate and Columbia City, and asking no enrollment of anyone.</p>
+        <div class="meta"><span class="u">deniselouie.org/services/play-learn</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://helpmegrowwa.org/pregnancy-birth">Help Me Grow, Child Development</a></h3>
+        <p>Free screenings of how the child comes along, and a bilingual milestone height chart (2 months–5 years); and should some worry take hold of you, the navigators will carry you onward to early-intervention.</p>
+        <div class="meta"><span class="u">helpmegrowwa.org</span><span class="phone">1-800-322-2588</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.parenttrust.org/for-families/call-fhl/">Parent Trust Family Help Line</a></h3>
+        <p>Living voices for the daily riddles and griefs of it, the sleep that will not come, the tantrum, the broken routine, and referrals onward to classes and groups and doings, across the whole of Washington's thirty-nine counties.</p>
+        <div class="meta"><span class="u">parenttrust.org/for-families/call-fhl</span><span class="phone">1-800-932-4673</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://seattlechildrensmuseum.org/">Seattle Children's Museum</a></h3>
+        <p>Hands set to play, a daily story hour, the creative corner and the silly science, all of it at Seattle Center; open Wed–Mon, 10am–5pm.</p>
+        <div class="meta"><span class="u">seattlechildrensmuseum.org</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://spl.libcal.com/passes/Zoo">Seattle Public Library, Free Museum Passes</a></h3>
+        <p>A free library card is the whole of the price; with it you may reserve passage into Woodland Park Zoo, the Seattle Aquarium, MoPOP, the Pacific Science Center and more, one pass to the week, the children frequently free.</p>
+        <div class="meta"><span class="u">spl.libcal.com/passes</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.parentmap.com/">ParentMap, Baby &amp; Toddler Advice</a></h3>
+        <p>The local word on infant sleep and feeding, on milestones and the long rainy-day play, and the surest calendar of family doings in the region (see the Events below).</p>
+        <div class="meta"><span class="u">parentmap.com</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.eastgatecooperativepreschool.org/">Eastgate Cooperative Preschool</a></h3>
+        <p>A parent-participation co-op in Bellevue, its play-based classes running from the toddler (ages 1–2) clean through Pre-K, with monthly parent-education besides; the tuition kept low for the plain reason that the families themselves work the room.</p>
+        <div class="meta"><span class="u">eastgatecooperativepreschool.org</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.issaquahcooppreschool.com/">Issaquah Cooperative Preschool</a></h3>
+        <p>An Issaquah co-op with second-year toddler classes and the 3s and the 4s/Pre-K beside them; play-based, and carrying within it a ready-made community of parents and the monthly parent-education.</p>
+        <div class="meta"><span class="u">issaquahcooppreschool.com</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://alpinecooppreschool.wordpress.com/">Alpine Cooperative Preschool</a></h3>
+        <p>A Snoqualmie Valley co-op, its toddler classes giving onto preschool; hands-on and play-based, the parent learning there in the room, right alongside the child.</p>
+        <div class="meta"><span class="u">alpinecooppreschool.wordpress.com</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.pinelakecoop.org/">Pine Lake Cooperative Preschool (Sammamish)</a></h3>
+        <p>Sammamish's Pine Lake co-op: play-based preschool with the parents at work in it and the monthly parent-education, one strand of the Bellevue College co-op network.</p>
+        <div class="meta"><span class="u">pinelakecoop.org</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.bellevuecollege.edu/parented/cooperative-preschools/">Bellevue College Co-op Preschools</a></h3>
+        <p>The parent-education program standing behind these Eastside co-ops; here are the toddler-through-Pre-K classes, the locations, the registrars, and, in several cities, the infant and toddler-only options besides.</p>
+        <div class="meta"><span class="u">bellevuecollege.edu/parented</span></div>
+      </div>
+
+      <div class="card"><h3><a href="https://www.imaginationlibrarywashington.org/">Imagination Library of Washington</a></h3><p>Good books, free, arriving by mail month upon month to enrolled Washington children, from birth to the age of five.</p><div class="meta"><span class="u">imaginationlibrarywashington.org</span></div></div>
+
+      <div class="card"><h3><a href="https://reachoutandread.org/affiliate/washington/">Reach Out and Read</a></h3><p>An early-literacy work that presses a book, and a word of counsel, into your hands at the child's own pediatric checkups.</p><div class="meta"><span class="u">reachoutandread.org</span></div></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CHILDCARE & PRESCHOOL -->
+<section class="block" id="childcare">
+  <div class="wrap">
+    <span class="stage-tag">Finding Care · Infants to Pre-K</span>
+    <h2>Childcare &amp; Preschool</h2>
+    <p class="lead">Help finding child care you trust and the subsidies that make it affordable, including preschool that's free for many families.</p>
+    <div class="grid">
+
+      <div class="card">
+        <h3><a href="https://childcareawarewa.org/family-services/financial-help-for-child-care/">Child Care Aware of Washington</a></h3>
+        <p>Free referral specialists who help you find the licensed care that suits your particular family, and reckon whether the financial help is yours to claim; call the Family Center, and begin.</p>
+        <div class="meta"><span class="u">childcareawarewa.org</span><span class="phone">1-800-446-1114</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.dcyf.wa.gov/services/earlylearning-childcare/getting-help/wccc">Working Connections Child Care (WCCC)</a></h3>
+        <p>Washington's child-care subsidy: the working or studying family that qualifies pays only a small monthly copay (and sometimes nothing at all), while the state takes up all the rest; apply at WashingtonConnection.org.</p>
+        <div class="meta"><span class="u">dcyf.wa.gov → WCCC</span><span class="phone">844-626-8687</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.seattle.gov/education/for-parents/child-care-and-preschool/seattle-preschool-program">Seattle Preschool Program (SPP)</a></h3>
+        <p>High-quality preschool for the Seattle 3- and 4-year-old, priced upon a sliding scale, most families qualifying for free tuition, near $12,000/yr in worth, with dual-language and inclusive classrooms to be had.</p>
+        <div class="meta"><span class="u">seattle.gov → Seattle Preschool Program</span><span class="phone">(206) 386-1050</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.brightspark.org/">Best Starts for Kids Child Care Subsidy</a></h3>
+        <p>A King County subsidy, kept by BrightSpark, that brings child care within the reach of more families, walking often beside WCCC or following after it; the staff will lead you through the eligibility of it.</p>
+        <div class="meta"><span class="u">brightspark.org</span><span class="phone">(206) 208-6865</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SPECIAL NEEDS -->
+<section class="block" id="specialneeds">
+  <div class="wrap">
+    <span class="stage-tag">All Abilities · Birth to 21</span>
+    <h2>Special Needs &amp; Early Intervention</h2>
+    <p class="lead">Free early-intervention and disability support for kids of every ability, with no doctor's referral needed.</p>
+    <div class="grid">
+
+      <div class="card">
+        <h3><a href="https://www.dcyf.wa.gov/services/child-development-supports/esit">Early Support for Infants &amp; Toddlers (ESIT)</a></h3>
+        <p>Washington's free birth-to-3 early-intervention, speech and occupational and physical therapy, and the coaching of the whole family, brought to the home or into the community; near one child in eight is found to qualify.</p>
+        <div class="meta"><span class="u">dcyf.wa.gov → ESIT</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://kingcounty.gov/en/dept/dchs/human-social-services/programs-children-families/early-support-infants-toddlers">King County ESIT &amp; Developmental Bridge</a></h3>
+        <p>Make the ESIT referral and find the nearby provider through King County's Resource Access Team; and the Seattle Developmental Bridge bears up the child from birth–4, at no cost, within the city limits of Seattle.</p>
+        <div class="meta"><span class="u">kingcounty.gov → ESIT</span><span class="phone">(206) 204-3536</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://kindering.org/">Kindering</a></h3>
+        <p>An Eastside nonprofit giving free developmental evaluations and therapies and family support to children of every ability (Bellevue, Bothell, Redmond, Renton); and no doctor's referral is asked of you to begin.</p>
+        <div class="meta"><span class="u">kindering.org</span><span class="phone">(425) 747-4004</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.seattleschools.org/enroll/">School-Age Special Education</a></h3>
+        <p>Once the child has turned three, it falls to your school district to furnish the special-education services and the IEP; begin with Seattle Public Schools, or with your own district, and request the evaluation.</p>
+        <div class="meta"><span class="u">seattleschools.org</span></div>
+      </div>
+
+      <div class="card">
+        <h3>Washington 211 (Crisis Connections)</h3>
+        <p>Free pilotage through the whole tangle of it, disability, health, housing, the family services, across King County, with interpretation in better than 150 languages; dial 2-1-1, and a community resource specialist will answer.</p>
+        <div class="meta"><span class="phone">Call 2-1-1</span></div>
+      </div>
+      <div class="card"><h3><a href="https://wapave.org">PAVE</a></h3><p>Washington's Parent Training &amp; Information Center, free help to the family through the IEP and the long thickets of special education.</p><div class="meta"><span class="u">wapave.org</span><span class="phone">800-572-7368</span></div></div>
+      <div class="card"><h3><a href="https://opendoorswa.org">Open Doors for Multicultural Families</a></h3><p>Disability support that answers each family in its own culture, across the many peoples of King County.</p><div class="meta"><span class="u">opendoorswa.org</span><span class="phone">253-216-4479</span></div></div>
+      <div class="card"><h3><a href="https://encompassnw.org">Encompass</a></h3><p>Early intervention and pediatric therapy for children, out in the Snoqualmie Valley and across the Eastside.</p><div class="meta"><span class="u">encompassnw.org</span><span class="phone">425-888-3347</span></div></div>
+      <div class="card"><h3><a href="https://www.boyercc.org">Boyer Children's Clinic</a></h3><p>Seattle's largest house of birth-to-three early intervention and therapy.</p><div class="meta"><span class="u">boyercc.org</span><span class="phone">206-325-8477</span></div></div>
+      <div class="card"><h3><a href="https://wonderlandkids.org">Wonderland Child &amp; Family Services</a></h3><p>Early intervention in north King County for the child whose growing has come slow.</p><div class="meta"><span class="u">wonderlandkids.org</span><span class="phone">206-364-3777</span></div></div>
+      <div class="card"><h3><a href="https://specialolympicswashington.org">Special Olympics Washington</a></h3><p>Year-round sport, and a place kept in it for everyone, for the young of intellectual disability.</p><div class="meta"><span class="u">specialolympicswashington.org</span><span class="phone">206-362-4949</span></div></div>
+      <div class="card"><h3><a href="https://www.arcofkingcounty.org">The Arc of King County</a></h3><p>Family support, and an advocate's voice, in the matter of developmental and intellectual disability.</p><div class="meta"><span class="u">arcofkingcounty.org</span><span class="phone">206-364-6337</span></div></div>
+      <div class="card"><h3><a href="https://www.informingfamilies.org">Informing Families</a></h3><p>Washington's gathering-place of word and resource for the family making its slow way through the disability supports.</p><div class="meta"><span class="u">informingfamilies.org</span></div></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SCHOOL AGE -->
+<section class="block" id="school">
+  <div class="wrap">
+    <span class="stage-tag">Stage 3 · Kindergarten to Grade 12</span>
+    <h2>School Age (K–12)</h2>
+    <p class="lead">Enrollment, school choice, and after-school support for the elementary and middle-school years.</p>
+    <div class="grid">
+
+      <div class="card">
+        <h3><a href="https://www.seattleschools.org/enroll/">Seattle Public Schools, Enrollment</a></h3>
+        <p>Find your neighborhood school by the address-lookup, learn the option schools, and lay your application in the Open Enrollment / School Choice window that opens each January.</p>
+        <div class="meta"><span class="u">seattleschools.org/enroll</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://spl.libcal.com/passes/Zoo">Seattle Public Library</a></h3>
+        <p>Free help with the homework, the summer reading (the Summer Book Bingo), the maker spaces and the museum passes; and every K–12 student is owed a library card of their own.</p>
+        <div class="meta"><span class="u">spl.org</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.parenttrust.org/">Parent Trust, Classes &amp; Support</a></h3>
+        <p>Parenting classes and support groups, and referrals besides, the IEP, the parenting plan, for the school-age years.</p>
+        <div class="meta"><span class="u">parenttrust.org</span><span class="phone">1-800-932-4673</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.seattleschild.com/calendar/">Seattle's Child</a></h3>
+        <p>The local parenting news, and a searchable calendar of camps and classes and sports and festivals you may sift by the child's age and your own neighborhood.</p>
+        <div class="meta"><span class="u">seattleschild.com</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.waschoolcounselor.org/Student-and-Family-Resources">WA School Counselor Association</a></h3>
+        <p>A gathering of family resources: the Teen Health Hub, the High School &amp; Beyond Plan, the mental-health referrals, and the programs that teach a child its own safety.</p>
+        <div class="meta"><span class="u">waschoolcounselor.org</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.hopelink.org/programs/financial-capabilities/financial-aid-for-students/">Hopelink</a></h3>
+        <p>The supports that hold a family steady across King County, food, the schooling in money, the one-to-one help that keeps a child fit to learn.</p>
+        <div class="meta"><span class="u">hopelink.org</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TEENS & COLLEGE -->
+<section class="block" id="teen">
+  <div class="wrap">
+    <span class="stage-tag">Stage 4 · Teens &amp; College Prep</span>
+    <h2>Teens &amp; College</h2>
+    <p class="lead">Mental-health support, the High School &amp; Beyond Plan, and free help with FAFSA and WASFA.</p>
+    <div class="grid">
+
+      <div class="card">
+        <h3><a href="https://wsac.wa.gov/wasfa">WASFA, WA State Financial Aid</a></h3>
+        <p>The state-aid application for the student who cannot, or will not, file a FAFSA, the undocumented among them, and the key to the Washington College Grant and the College Bound Scholarship.</p>
+        <div class="meta"><span class="u">wsac.wa.gov/wasfa</span><span class="phone">888-535-0747</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.seattlecolleges.edu/financial-aid/apply-aid/fafsa-or-wasfa">Seattle Colleges, FAFSA or WASFA?</a></h3>
+        <p>A plain setting of the two applications side by side, with free virtual workshops and the Funding Navigator to sit with you; submit the one only, never the both.</p>
+        <div class="meta"><span class="u">seattlecolleges.edu</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.futuresnw.org/fafsawasfa">FuturesNW</a></h3>
+        <p>Free one-to-one labor over the FAFSA and the WASFA, a step-by-step Padlet, and gatherings near home, with a particular care taken for the mixed-status family.</p>
+        <div class="meta"><span class="u">futuresnw.org/fafsawasfa</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.waschoolcounselor.org/Student-and-Family-Resources">Teen Health Hub &amp; HS &amp; Beyond Plan</a></h3>
+        <p>A vetted roll of youth-kindly behavioral-health and primary-care resources, and the High School &amp; Beyond Plan that lays the classes down against the far goals of career and college.</p>
+        <div class="meta"><span class="u">waschoolcounselor.org</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://studentaid.gov">FAFSA, Federal Student Aid</a></h3>
+        <p>The free federal application for the grants and the work-study and the loans; make an FSA ID at StudentAid.gov, for most families do best to file the FAFSA and leave no aid upon the table.</p>
+        <div class="meta"><span class="u">studentaid.gov</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://perinatalsupport.org/for-parents/">Mental-Health Support for Teens</a></h3>
+        <p>For the teen in the grip of crisis, call or text <strong>988</strong>, at any hour there is; and the WA Mental Health Referral Service will match the young (17 and under) to providers who will take your insurance.</p>
+        <div class="meta"><span class="phone">988, call or text</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PARENT SUPPORT -->
+<section class="block" id="support">
+  <div class="wrap">
+    <span class="stage-tag">For You · Every Stage</span>
+    <h2>Parent Support &amp; Community</h2>
+    <p class="lead">Groups, coaches, and warm lines that connect you with other parents and trained support, at every age.</p>
+    <div class="grid">
+
+      <div class="card">
+        <h3><a href="https://peps.org/programs">PEPS, Program for Early Parent Support</a></h3>
+        <p>Seattle's own peer-support groups, set to the child's season, the expecting, the newborn, the 5–12 months, the teens, and groups besides for the working mother, the single parent, the LGBTQIA+ family; the price made flexible, and assistance to be had.</p>
+        <div class="meta"><span class="u">peps.org</span><span class="phone">(206) 547-8570</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.parenttrust.org/for-families/call-fhl/">Parent Trust Family Help Line</a></h3>
+        <p>Talk the whole trouble through with a living coach, Mon–Fri 9am–5pm, and be sent onward to classes and groups across the state; it is free, and a recorded resource line keeps its watch 24/7.</p>
+        <div class="meta"><span class="u">parenttrust.org</span><span class="phone">1-800-932-4673</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://perinatalsupport.org/for-parents/">Perinatal Support WA, Support Groups</a></h3>
+        <p>Welcoming circles for the pregnancy and the long postpartum year, with a warm line and online therapy for the shifting mood, the anxiety, the loss; easy, without judgment, y se habla español.</p>
+        <div class="meta"><span class="u">perinatalsupport.org</span><span class="phone">1-888-404-7763</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://helpmegrowwa.org/pregnancy-birth">Help Me Grow Navigators</a></h3>
+        <p>Uncertain which way to turn? The Family Resource Navigators hear out what your family wants and bind you to the right help near home, and often in the one call.</p>
+        <div class="meta"><span class="u">helpmegrowwa.org</span><span class="phone">1-800-322-2588</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOD & BASIC NEEDS -->
+<section class="block" id="food">
+  <div class="wrap">
+    <span class="stage-tag">Essentials · Every Stage</span>
+    <h2>Food &amp; Basic Needs</h2>
+    <p class="lead">Diapers, formula, food, and benefits help, so no kid goes without.</p>
+    <div class="grid">
+
+      <div class="card">
+        <h3><a href="https://westsidebaby.org/">WestSide Baby</a></h3>
+        <p>King County's diaper bank, free diapers and clothing, car seats and gear, sent out through more than a hundred partner agencies; you reach it by way of a case worker, a food bank, or a public-health nurse.</p>
+        <div class="meta"><span class="u">westsidebaby.org</span><span class="phone">206-767-1662</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://withinreachwa.org/contact-us">WIC (via WithinReach)</a></h3>
+        <p>WIC lays down monthly food benefits, nutrition counsel, and breastfeeding support for the pregnant and for children under five; WithinReach and the ParentHelp123 finder help you make the claim.</p>
+        <div class="meta"><span class="u">withinreachwa.org</span><span class="phone">(206) 284-2465</span></div>
+      </div>
+
+      <div class="card">
+        <h3><a href="https://www.washingtonconnection.org/">Washington Connection, SNAP &amp; Benefits</a></h3>
+        <p>Apply in the one place, online, for SNAP and cash assistance and the other state programs; many a family with children is found to qualify.</p>
+        <div class="meta"><span class="u">washingtonconnection.org</span><span class="phone">844-626-8687</span></div>
+      </div>
+
+      <div class="card">
+        <h3>Local Food Banks &amp; WA 211</h3>
+        <p>Find the food bank nearest you, and the help for rent and utility and bare necessity besides, by dialing 2-1-1 (Crisis Connections), free, and answered in better than 150 languages.</p>
+        <div class="meta"><span class="phone">Call 2-1-1</span></div>
+      </div>
+      <div class="card"><h3><a href="https://kidvantagenw.org">KidVantage (formerly Eastside Baby Corner)</a></h3><p>Free diapers and clothing and gear for the families of the Eastside, kept out of Issaquah.</p><div class="meta"><span class="u">kidvantagenw.org</span><span class="phone">425-865-0234</span></div></div>
+      <div class="card"><h3><a href="https://issaquahfoodbank.org">Issaquah Food &amp; Clothing Bank</a></h3><p>Free food and clothing and diapers for the families of the Issaquah country.</p><div class="meta"><span class="u">issaquahfoodbank.org</span><span class="phone">425-392-4123</span></div></div>
+      <div class="card"><h3><a href="https://renton.salvationarmy.org/renton_corps/food-bank">Salvation Army Renton Food Bank</a></h3><p>Emergency food, and the baby's supplies, for the families of Renton.</p><div class="meta"><span class="u">renton.salvationarmy.org</span><span class="phone">425-255-5969</span></div></div>
+      <div class="card"><h3><a href="https://seattlefarmersmarkets.org/food-access">Neighborhood Farmers Markets</a></h3><p>The Seattle markets match your SNAP/EBT dollar for dollar, that a food budget might be made to stretch the further.</p><div class="meta"><span class="u">seattlefarmersmarkets.org</span></div></div>
+      <div class="card"><h3><a href="https://www.seattlefreshbucks.org/">Seattle Fresh Bucks</a></h3><p>Monthly produce vouchers for the income-eligible Seattle family, good at the markets and the grocers alike.</p><div class="meta"><span class="u">seattlefreshbucks.org</span></div></div>
+      <div class="card"><h3><a href="https://doh.wa.gov/you-and-your-family/nutrition-and-physical-activity/healthy-eating/snap-match-programs/snap-market-match">WA SNAP Market Match</a></h3><p>A statewide matching of produce for the SNAP/EBT shopper, at more than a hundred farmers markets.</p><div class="meta"><span class="u">doh.wa.gov</span></div></div>
+      <div class="card"><h3><a href="https://bellevuefarmersmarket.org/">Bellevue Farmers Market</a></h3><p>The Thursday market in Bellevue, SNAP Market Match and all, kept for families.</p><div class="meta"><span class="u">bellevuefarmersmarket.org</span></div></div>
+      <div class="card"><h3><a href="https://rentonfarmersmarket.com/">Renton Farmers Market</a></h3><p>The Tuesday market in Renton (June–September), with doings for the family and EBT honored.</p><div class="meta"><span class="u">rentonfarmersmarket.com</span></div></div>
+      <div class="card"><h3><a href="https://kirklanddowntown.org/events/kirkland-market/">Kirkland Wednesday Market</a></h3><p>The Wednesday waterfront market in Kirkland, where SNAP Market Match and WIC are taken.</p><div class="meta"><span class="u">kirklanddowntown.org</span></div></div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HEALTH & MEDICAL -->
+<section class="block" id="health">
+  <div class="wrap">
+    <span class="stage-tag">Health · Every Stage</span>
+    <h2>Health &amp; Medical</h2>
+    <p class="lead">Clinics that see families regardless of ability to pay, plus kids' insurance, vaccines, breastfeeding help, and poison control.</p>
+    <div class="grid">
+      <div class="card"><h3><a href="https://neighborcare.org">Neighborcare Health</a></h3><p>Sliding-fee medical and dental, pediatric and mental-health care, at clinics scattered across the greater part of Seattle.</p><div class="meta"><span class="u">neighborcare.org</span><span class="phone">206-633-3350</span></div></div>
+      <div class="card"><h3><a href="https://www.healthpointchc.org">HealthPoint</a></h3><p>Nonprofit community health centers tending the whole family across King County, and turning none away for want of means.</p><div class="meta"><span class="u">healthpointchc.org</span><span class="phone">866-893-5717</span></div></div>
+      <div class="card"><h3><a href="https://countrydoctor.org">Country Doctor Community Health</a></h3><p>Sliding-scale primary and pediatric and behavioral care; the uninsured taken in, and Apple Health honored.</p><div class="meta"><span class="u">countrydoctor.org</span><span class="phone">206-299-1600</span></div></div>
+      <div class="card"><h3><a href="https://www.seattlechildrens.org">Seattle Children's Hospital</a></h3><p>A pediatric hospital and its specialties, for the children and the teens of the whole region.</p><div class="meta"><span class="u">seattlechildrens.org</span><span class="phone">206-987-2000</span></div></div>
+      <div class="card"><h3><a href="https://www.seattlechildrens.org/clinics/washington-mental-health-referral-service">WA Mental Health Referral Service (Kids &amp; Teens)</a></h3><p>A free service that matches the child of seventeen and under to nearby mental-health providers who will take your insurance.</p><div class="meta"><span class="u">seattlechildrens.org</span><span class="phone">833-303-5437</span></div></div>
+      <div class="card"><h3><a href="https://www.hca.wa.gov/free-or-low-cost-health-care/i-need-medical-dental-or-vision-care/children">Apple Health for Kids</a></h3><p>Free or low-cost Medicaid coverage, medical, dental, and vision, for the eligible children of Washington.</p><div class="meta"><span class="u">hca.wa.gov</span><span class="phone">800-562-3022</span></div></div>
+      <div class="card"><h3><a href="https://www.wahealthplanfinder.org">Washington Healthplanfinder</a></h3><p>The official marketplace, where one applies for Apple Health or buys the subsidized family plan.</p><div class="meta"><span class="u">wahealthplanfinder.org</span><span class="phone">855-923-4633</span></div></div>
+      <div class="card"><h3><a href="https://doh.wa.gov/you-and-your-family/immunization">WA DOH Immunizations</a></h3><p>The childhood vaccine schedules, the school requirements, and Washington's free childhood vaccine program, all set down.</p><div class="meta"><span class="u">doh.wa.gov</span></div></div>
+      <div class="card"><h3><a href="https://immunitycommunitywa.org">WithinReach ImmunityCommunity</a></h3><p>Plain-spoken word on immunization, the tools and the resources, for the Washington parent.</p><div class="meta"><span class="u">immunitycommunitywa.org</span></div></div>
+      <div class="card"><h3><a href="https://www.nursingmothers.org">Nursing Mothers Counsel</a></h3><p>Free lactation counsel, a warmline, classes, and the breast-pump to rent at little cost.</p><div class="meta"><span class="u">nursingmothers.org</span></div></div>
+      <div class="card"><h3><a href="https://lllwa.org">La Leche League of Washington</a></h3><p>Free peer support in the breastfeeding and chestfeeding of a child, through local groups and trained volunteer leaders.</p><div class="meta"><span class="u">lllwa.org</span></div></div>
+      <div class="card"><h3><a href="https://www.wapc.org">Washington Poison Center</a></h3><p>Free and confidential help, kept 24/7, against poisonings and overdoses and the toxic thing swallowed.</p><div class="meta"><span class="u">wapc.org</span><span class="phone">1-800-222-1222</span></div></div>
+      <div class="card"><h3><a href="https://www.overlakehospital.org/services/childbirth-center">Overlake Medical Center, Childbirth</a></h3><p>A Bellevue childbirth center, its Level III NICU and its parenting classes.</p><div class="meta"><span class="u">overlakehospital.org</span><span class="phone">425-688-5000</span></div></div>
+      <div class="card"><h3><a href="https://www.evergreenhealth.com/health-services/pregnancy-birth/">EvergreenHealth, Pregnancy &amp; Birth</a></h3><p>Kirkland's Family Maternity Center, for the pregnancy and the birth and the newborn's first keeping.</p><div class="meta"><span class="u">evergreenhealth.com</span><span class="phone">425-899-1000</span></div></div>
+      <div class="card"><h3><a href="https://www.valleymed.org/find-a-location/b/birth-center--neonatal-icu">Valley Medical Center, Birth Center</a></h3><p>Renton's birth center and its neonatal ICU, for the growing family.</p><div class="meta"><span class="u">valleymed.org</span><span class="phone">425-690-3590</span></div></div>
+      <div class="card"><h3><a href="https://www.swedish.org/services/pregnancy-and-childbirth">Swedish, Pregnancy &amp; Childbirth</a></h3><p>Seattle maternity and childbirth care, spread across Western Washington.</p><div class="meta"><span class="u">swedish.org</span><span class="phone">833-923-3555</span></div></div>
+      <div class="card"><h3><a href="https://www.seattlechildrens.org/locations/bellevue-clinic/">Seattle Children's, Bellevue Clinic</a></h3><p>An Eastside pediatric specialty clinic, surgery and urgent care, in Bellevue.</p><div class="meta"><span class="u">seattlechildrens.org</span><span class="phone">425-454-4644</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SAFETY & CRISIS -->
+<section class="block" id="safety">
+  <div class="wrap">
+    <span class="stage-tag">Safety · Every Stage</span>
+    <h2>Family Safety &amp; Crisis</h2>
+    <p class="lead">Car-seat checks, domestic-violence support, shelter, free legal aid, and how to report concerns about a child's safety.</p>
+    <div class="grid">
+      <div class="card"><h3><a href="https://wacarseats.com">WA Car Seats, Inspection Stations</a></h3><p>A statewide map of the car-seat inspection stations and the certified hands that will fit one, free.</p><div class="meta"><span class="u">wacarseats.com</span></div></div>
+      <div class="card"><h3><a href="https://www.seattlechildrens.org/health-safety/injury-prevention/car-seat-checks/">Seattle Children's Car Seat Checks</a></h3><p>Free car-seat safety checks, at Seattle and Bellevue and Federal Way.</p><div class="meta"><span class="u">seattlechildrens.org</span><span class="phone">206-477-8664</span></div></div>
+      <div class="card"><h3><a href="https://dawnrising.org">DAWN, Domestic Abuse Women's Network</a></h3><p>A support line kept around the clock, with shelter and legal and immigration advocacy, for the survivors of King County.</p><div class="meta"><span class="u">dawnrising.org</span><span class="phone">425-656-7867</span></div></div>
+      <div class="card"><h3><a href="https://www.nwnetwork.org/">The NW Network</a></h3><p>Advocacy and counsel and support for LGBTQ survivors of abuse, and for the families that hold them.</p><div class="meta"><span class="u">nwnetwork.org</span><span class="phone">206-568-7777</span></div></div>
+      <div class="card"><h3><a href="https://www.marysplaceseattle.org/">Mary's Place</a></h3><p>Emergency shelter, and what a family needs, for those gone without a home in King County.</p><div class="meta"><span class="u">marysplaceseattle.org</span><span class="phone">206-245-1026</span></div></div>
+      <div class="card"><h3><a href="https://crisisconnections.org/">Crisis Connections / 211</a></h3><p>Referrals for food and housing, for rent and utility, and the steadying word in crisis, across King County.</p><div class="meta"><span class="u">crisisconnections.org</span><span class="phone">Call 2-1-1</span></div></div>
+      <div class="card"><h3><a href="https://www.dcyf.wa.gov/safety/report-abuse">Report Child Abuse (WA DCYF)</a></h3><p>Report the suspected abuse or neglect of a child; the King County intake line is 1-800-609-8764.</p><div class="meta"><span class="u">dcyf.wa.gov</span><span class="phone">866-363-4276</span></div></div>
+      <div class="card"><h3><a href="https://childhelphotline.org/">Childhelp National Child Abuse Hotline</a></h3><p>Confidential counsel kept around the clock, crisis intervention, and guidance in the reporting of child abuse.</p><div class="meta"><span class="u">childhelphotline.org</span><span class="phone">800-422-4453</span></div></div>
+      <div class="card"><h3><a href="https://nwjustice.org/clear-hotline">Northwest Justice Project (CLEAR)</a></h3><p>Free civil legal aid for the low-income family; in King County, call 2-1-1 to be taken in.</p><div class="meta"><span class="u">nwjustice.org</span><span class="phone">1-888-201-1014</span></div></div>
+      <div class="card"><h3><a href="https://www.nwirp.org/resources/contact/">Northwest Immigrant Rights Project</a></h3><p>Free and low-cost immigration legal services, the VAWA and the U-visa among them.</p><div class="meta"><span class="u">nwirp.org</span><span class="phone">206-587-4009</span></div></div>
+      <div class="card"><h3><a href="https://www.lifewire.org">LifeWire</a></h3><p>Domestic-violence support, shelter, and advocacy for survivors of the Eastside (Bellevue/Kirkland).</p><div class="meta"><span class="u">lifewire.org</span><span class="phone">425-562-8840</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LEARNING & ENRICHMENT -->
+<section class="block" id="learning">
+  <div class="wrap">
+    <span class="stage-tag">Learning · Pre-K to Grade 12</span>
+    <h2>Learning &amp; Enrichment</h2>
+    <p class="lead">Libraries, camps, scouting, arts, STEM, gifted programs, and homeschool support beyond the classroom.</p>
+    <div class="grid">
+      <div class="card"><h3><a href="https://kcls.org">King County Library System (KCLS)</a></h3><p>Free books and e-books, help with the homework, story times and events, at branches all across King County.</p><div class="meta"><span class="u">kcls.org</span><span class="phone">425-369-3200</span></div></div>
+      <div class="card"><h3><a href="https://www.parentmap.com/camps-and-classes">ParentMap Camps &amp; Classes Guide</a></h3><p>An editor's curated guide to the Seattle-area summer camps, the day camps, the enrichment classes.</p><div class="meta"><span class="u">parentmap.com/camps-and-classes</span></div></div>
+      <div class="card"><h3><a href="https://www.girlscoutsww.org">Girl Scouts of Western Washington</a></h3><p>Troops and badges, camps and the schooling in leadership, for the girls of Western Washington.</p><div class="meta"><span class="u">girlscoutsww.org</span><span class="phone">800-541-9852</span></div></div>
+      <div class="card"><h3><a href="https://scoutingseattle.org">Scouts BSA, Chief Seattle Council</a></h3><p>Cub Scouts and Scouts BSA troops, and the summer camps, throughout the Seattle region.</p><div class="meta"><span class="u">scoutingseattle.org</span><span class="phone">206-725-5200</span></div></div>
+      <div class="card"><h3><a href="https://www.seattleschools.org/departments/highly-capable/">SPS Highly Capable / Advanced Learning</a></h3><p>The finding-out of the gifted and highly-capable, and the services owed them, in Seattle Public Schools.</p><div class="meta"><span class="u">seattleschools.org</span></div></div>
+      <div class="card"><h3><a href="https://washhomeschool.org">Washington Homeschool Organization</a></h3><p>A statewide nonprofit holding the homeschool law's guidance, the curriculum, and the support of families.</p><div class="meta"><span class="u">washhomeschool.org</span></div></div>
+      <div class="card"><h3><a href="https://pacificsciencecenter.org/education/">Pacific Science Center, Education</a></h3><p>STEM camps and field trips, and Science on Wheels carried out to the curious child.</p><div class="meta"><span class="u">pacificsciencecenter.org</span><span class="phone">206-443-2925</span></div></div>
+      <div class="card"><h3><a href="https://www.creativeadvantageseattle.org">The Creative Advantage</a></h3><p>A citywide partnership set to see that no Seattle Public Schools student goes without arts education.</p><div class="meta"><span class="u">creativeadvantageseattle.org</span></div></div>
+      <div class="card"><h3><a href="https://spl.libnet.info/events">Seattle Public Library, Events &amp; Author Talks</a></h3><p>Thousands of free programs in a year, the author talks, the STEM and maker workshops, the story times, and Seattle Reads.</p><div class="meta"><span class="u">spl.org</span></div></div>
+      <div class="card"><h3><a href="https://kcls.bibliocommons.com/events/">King County Library System, Events</a></h3><p>Free author events and story times, STEM programs and homework help, across the King County branches (Bellevue, Kirkland, Renton, Issaquah).</p><div class="meta"><span class="u">kcls.org</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- YOUTH PROGRAMS -->
+<section class="block" id="youth">
+  <div class="wrap">
+    <span class="stage-tag">Youth · Ages 6–24</span>
+    <h2>Youth Programs &amp; Mentoring</h2>
+    <p class="lead">Mentoring, clubs, first jobs, and confidential teen support lines for older kids.</p>
+    <div class="grid">
+      <div class="card"><h3><a href="https://inspirebig.org">Big Brothers Big Sisters of Puget Sound</a></h3><p>One-to-one mentoring, the young matched to the steadying elder, across King and the counties about it.</p><div class="meta"><span class="u">inspirebig.org</span><span class="phone">206-763-9060</span></div></div>
+      <div class="card"><h3><a href="https://www.seattle.gov/human-services/services-and-programs/youth-and-young-adults/seattle-youth-employment-program">Seattle Youth Employment Program</a></h3><p>Paid internships and the training in a trade, for the young of sixteen to twenty-four (16–24).</p><div class="meta"><span class="u">seattle.gov → SYEP</span></div></div>
+      <div class="card"><h3><a href="https://www.seattleymca.org">YMCA of Greater Seattle</a></h3><p>Camps and swim lessons, sport and child care and the youth programs, region-wide.</p><div class="meta"><span class="u">seattleymca.org</span><span class="phone">206-382-5004</span></div></div>
+      <div class="card"><h3><a href="https://positiveplace.org">Boys &amp; Girls Clubs of King County</a></h3><p>After-school clubs, the teen's first job, and the readying for college and career.</p><div class="meta"><span class="u">positiveplace.org</span><span class="phone">206-436-1843</span></div></div>
+      <div class="card"><h3><a href="https://www.teenlink.org">Teen Link</a></h3><p>A free and confidential teen-to-teen line for any trouble there is, answered, fittingly, by trained teens.</p><div class="meta"><span class="u">teenlink.org</span><span class="phone">866-833-6546</span></div></div>
+      <div class="card"><h3><a href="https://www.warecoveryhelpline.org">Washington Recovery Help Line</a></h3><p>Support kept around the clock, and referrals, for substance use and problem gambling and the troubled mind.</p><div class="meta"><span class="u">warecoveryhelpline.org</span><span class="phone">866-789-1511</span></div></div>
+      <div class="card"><h3><a href="https://www.youtheastsideservices.org/">Youth Eastside Services (YES)</a></h3><p>Youth mental-health counseling and substance-use treatment, out of Bellevue and across the Eastside.</p><div class="meta"><span class="u">youtheastsideservices.org</span><span class="phone">425-747-4937</span></div></div>
+      <div class="card"><h3><a href="https://www.friendsofyouth.org/">Friends of Youth</a></h3><p>Youth and family services, shelter, and behavioral health, kept in Kirkland and across the Eastside.</p><div class="meta"><span class="u">friendsofyouth.org</span><span class="phone">425-869-6490</span></div></div>
+      <div class="card"><h3><a href="https://akinfamily.org/">Akin (Renton-area family services)</a></h3><p>Counseling and well-being for the child and the family (the same once called Childhaven, and RAYS).</p><div class="meta"><span class="u">akinfamily.org</span><span class="phone">425-271-5600</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CULTURAL & MULTILINGUAL -->
+<section class="block" id="cultural">
+  <div class="wrap">
+    <span class="stage-tag">Community · Every Stage</span>
+    <h2>Culturally-Specific &amp; Multilingual</h2>
+    <p class="lead">Organizations that serve families in their own language and culture, rooted in Seattle's neighborhoods.</p>
+    <div class="grid">
+      <div class="card"><h3><a href="https://www.elcentrodelaraza.org">El Centro de la Raza</a></h3><p>A hub of better than forty programs for the Latino/a child, the youth, the family.</p><div class="meta"><span class="u">elcentrodelaraza.org</span><span class="phone">206-957-4634</span></div></div>
+      <div class="card"><h3><a href="https://cisc-seattle.org">Chinese Information &amp; Service Center (CISC)</a></h3><p>Multilingual services for the family and the youth and the elder, kept for Asian immigrant families.</p><div class="meta"><span class="u">cisc-seattle.org</span><span class="phone">206-624-5633</span></div></div>
+      <div class="card"><h3><a href="https://www.eastafricancs.org">East African Community Services</a></h3><p>Youth and family programs for the East African refugee and immigrant family.</p><div class="meta"><span class="u">eastafricancs.org</span><span class="phone">206-721-1119</span></div></div>
+      <div class="card"><h3><a href="https://www.sihb.org">Seattle Indian Health Board</a></h3><p>Health and family services rooted in culture, for the urban Native family.</p><div class="meta"><span class="u">sihb.org</span><span class="phone">206-324-9360</span></div></div>
+      <div class="card"><h3><a href="https://www.rescue.org/united-states/seattle-wa">International Rescue Committee, Seattle</a></h3><p>Resettlement, and the support of the family, for the refugee and immigrant of the Seattle country.</p><div class="meta"><span class="u">rescue.org</span><span class="phone">206-623-2105</span></div></div>
+      <div class="card"><h3><a href="https://openarmsps.org">Open Arms Perinatal Services</a></h3><p>Free doulas matched to your own culture, and lactation support, for the birthing family.</p><div class="meta"><span class="u">openarmsps.org</span><span class="phone">206-723-6868</span></div></div>
+      <div class="card"><h3><a href="https://www.iacswa.org">Indian American Community Services</a></h3><p>Multicultural family programs, and care in crisis, for the Indian American family (Bellevue).</p><div class="meta"><span class="u">iacswa.org</span><span class="phone">425-615-7270</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAMILY TYPES -->
+<section class="block" id="families">
+  <div class="wrap">
+    <span class="stage-tag">Community · Every Stage</span>
+    <h2>Family Types &amp; Communities</h2>
+    <p class="lead">Support for foster, kinship, and adoptive families, LGBTQ+ families, military families, grandparents raising grandkids, and parents of twins.</p>
+    <div class="grid">
+      <div class="card"><h3><a href="https://amarafamily.org">Amara</a></h3><p>Training and licensing and the long support that comes after, for the foster and kinship and adoptive family.</p><div class="meta"><span class="u">amarafamily.org</span><span class="phone">206-260-1700</span></div></div>
+      <div class="card"><h3><a href="https://www.treehouseforkids.org">Treehouse</a></h3><p>The educational and the essential, both, for the child and youth held in foster care.</p><div class="meta"><span class="u">treehouseforkids.org</span><span class="phone">206-767-7000</span></div></div>
+      <div class="card"><h3><a href="https://www.dshs.wa.gov/altsa/home-and-community-services-kinship-care/kinship-care">WA Kinship Care</a></h3><p>Kinship Navigators to help the grandparent, and the kin come round again to raising, find what they need.</p><div class="meta"><span class="u">dshs.wa.gov → Kinship Care</span></div></div>
+      <div class="card"><h3><a href="https://www.lamberthouse.org">Lambert House</a></h3><p>A drop-in community house that lends its strength to LGBTQ+ youth, ages 10–22.</p><div class="meta"><span class="u">lamberthouse.org</span><span class="phone">206-322-2515</span></div></div>
+      <div class="card"><h3><a href="https://www.pflagseattle.org">PFLAG Seattle</a></h3><p>Peer support, and what is needed, for the families and friends of LGBTQ+ people.</p><div class="meta"><span class="u">pflagseattle.org</span><span class="phone">206-325-7724</span></div></div>
+      <div class="card"><h3><a href="https://www.militaryonesource.mil">Military OneSource</a></h3><p>Free support kept around the clock, counsel and resource, for the military family.</p><div class="meta"><span class="u">militaryonesource.mil</span><span class="phone">800-342-9647</span></div></div>
+      <div class="card"><h3><a href="https://www.seattlemultiples.org">Seattle Families of Multiples</a></h3><p>Community, the sale of outgrown gear, and resource, for the greater-Seattle family of twins and multiples.</p><div class="meta"><span class="u">seattlemultiples.org</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MONEY & PRACTICAL -->
+<section class="block" id="money">
+  <div class="wrap">
+    <span class="stage-tag">Practical · Every Stage</span>
+    <h2>Money &amp; Practical Help</h2>
+    <p class="lead">Free tax help and credits, tax-free college savings, free transit for kids, and a neighborly way to pass along outgrown gear.</p>
+    <div class="grid">
+      <div class="card"><h3><a href="https://www.uwkc.org/need-help/tax-help/">United Way, Free Tax Prep</a></h3><p>Free tax filing, and help with the Child Tax Credit and the EITC, for the low- and moderate-income family.</p><div class="meta"><span class="u">uwkc.org</span><span class="phone">206-461-3700</span></div></div>
+      <div class="card"><h3><a href="https://wastate529.wa.gov">WA529 College Savings (GET &amp; Invest)</a></h3><p>The state 529 plans, by which one lays by, untaxed, against the child's far education.</p><div class="meta"><span class="u">wastate529.wa.gov</span><span class="phone">800-955-2318</span></div></div>
+      <div class="card"><h3><a href="https://info.myorca.com/youth-ride-free/">Youth Ride Free (ORCA)</a></h3><p>Free passage on the transit for every rider of eighteen and under, across the Puget Sound.</p><div class="meta"><span class="u">info.myorca.com</span></div></div>
+      <div class="card"><h3><a href="https://buynothingproject.org">Buy Nothing Project</a></h3><p>The hyperlocal gift economy, where a child's clothes and gear and toys pass free from neighbor to neighbor.</p><div class="meta"><span class="u">buynothingproject.org</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BY CITY -->
+<section class="block" id="cities">
+  <div class="wrap">
+    <span class="stage-tag">Local Government · Eastside &amp; South County</span>
+    <h2>By City, Parks, Rec &amp; School Districts</h2>
+    <p class="lead">City parks programs and school-district enrollment for Bellevue, Kirkland, Renton, and Issaquah, all served by the King County Library System.</p>
+    <div class="grid">
+      <div class="card"><h3><a href="https://bellevuewa.gov/city-government/departments/parks">Bellevue Parks &amp; Community Services</a></h3><p>Recreation and camps, preschool and youth sport, at the community centers across Bellevue.</p><div class="meta"><span class="u">bellevuewa.gov</span><span class="phone">425-452-6885</span></div></div>
+      <div class="card"><h3><a href="https://www.kirklandwa.gov/Government/Departments/Parks-and-Community-Services">Kirkland Parks &amp; Community Services</a></h3><p>Preschool and camps, dance and the youth doings, at the community centers and the KTUB teen center.</p><div class="meta"><span class="u">kirklandwa.gov</span><span class="phone">425-587-3330</span></div></div>
+      <div class="card"><h3><a href="https://www.rentonwa.gov/Government/Departments-and-Offices/Parks-and-Recreation">Renton Parks &amp; Recreation</a></h3><p>Preschool and youth classes, camps and the swimming, at the Renton Community Center.</p><div class="meta"><span class="u">rentonwa.gov</span><span class="phone">425-430-6700</span></div></div>
+      <div class="card"><h3><a href="https://www.issaquahwa.gov/index.aspx?NID=305">Issaquah Parks &amp; Community Services</a></h3><p>Community-center classes, the swimming, the day camps and preschool, kept for families.</p><div class="meta"><span class="u">issaquahwa.gov</span><span class="phone">425-837-3300</span></div></div>
+      <div class="card"><h3><a href="https://www.bsd405.org/enroll">Bellevue School District</a></h3><p>Enrollment by way of ParentVUE, the preschool and the before- and after-school care among the choices.</p><div class="meta"><span class="u">bsd405.org/enroll</span></div></div>
+      <div class="card"><h3><a href="https://www.lwsd.org/students-families/families/registration">Lake Washington School District</a></h3><p>Serving Kirkland and Redmond, the new-student and kindergarten registration set out for families.</p><div class="meta"><span class="u">lwsd.org</span><span class="phone">425-936-1200</span></div></div>
+      <div class="card"><h3><a href="https://www.rentonschools.us/learning-and-teaching/registration">Renton School District</a></h3><p>Online enrollment, the documents it asks of you, and guidance through kindergarten registration.</p><div class="meta"><span class="u">rentonschools.us</span><span class="phone">425-204-2333</span></div></div>
+      <div class="card"><h3><a href="https://www.isd411.org/enrollment/new-student-enrollment">Issaquah School District</a></h3><p>Online new-student enrollment, the open-enrollment transfers, and kindergarten registration.</p><div class="meta"><span class="u">isd411.org</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ORGANIZATIONS -->
+<section class="block" id="orgs">
+  <div class="wrap">
+    <h2>Partner Organizations, Quick Directory</h2>
+    <p class="lead">Type a word, a name, a topic, an age, and the list narrows to match.</p>
+    <div class="filter-row">
+      <input type="search" id="orgFilter" placeholder="Filter organizations (e.g. doula, financial aid, library)…" aria-label="Filter organizations">
+      <span class="count" id="orgCount"></span>
+    </div>
+    <div class="table-scroll">
+      <table id="orgTable">
+        <thead>
+          <tr><th>Organization</th><th>What they help with</th><th>Stage</th><th>Contact</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Help Me Grow Washington</td><td>Resource navigation: prenatal care, food, child development</td><td>Prenatal–Age 5</td><td>1-800-322-2588 · helpmegrowwa.org</td></tr>
+          <tr><td>Perinatal Support Washington</td><td>Pregnancy &amp; postpartum mental health, doulas, loss support</td><td>Prenatal–Postpartum</td><td>1-888-404-7763 · perinatalsupport.org</td></tr>
+          <tr><td>King County First Steps / Family Ways</td><td>Maternity support, nurse home visits (Apple Health)</td><td>Prenatal–Age 5</td><td>(206) 477-6950 · kingcounty.gov</td></tr>
+          <tr><td>Step By Step Family Support Center</td><td>In-home pregnancy &amp; infant support, baby items</td><td>Prenatal–Infant</td><td>(253) 896-0903 · stepbystepfamily.org</td></tr>
+          <tr><td>Parent Trust for Washington Children</td><td>Parenting classes &amp; Family Help Line (all ages)</td><td>All stages</td><td>1-800-932-4673 · parenttrust.org</td></tr>
+          <tr><td>WithinReach / ParentHelp123</td><td>WIC, Apple Health, food benefits enrollment</td><td>Prenatal–Age 5</td><td>(206) 284-2465 · withinreachwa.org</td></tr>
+          <tr><td>Denise Louie Education Center</td><td>Free Play &amp; Learn groups, early learning</td><td>Birth–Age 5</td><td>deniselouie.org</td></tr>
+          <tr><td>Seattle Public Library</td><td>Story times, homework help, free museum passes</td><td>All stages</td><td>spl.org</td></tr>
+          <tr><td>Seattle Public Schools</td><td>K–12 enrollment &amp; school choice</td><td>K–12</td><td>seattleschools.org/enroll</td></tr>
+          <tr><td>WA School Counselor Association</td><td>Teen Health Hub, HS &amp; Beyond Plan, referrals</td><td>Teens</td><td>waschoolcounselor.org</td></tr>
+          <tr><td>WSAC (WASFA)</td><td>State financial aid &amp; scholarships</td><td>College prep</td><td>888-535-0747 · wsac.wa.gov/wasfa</td></tr>
+          <tr><td>FuturesNW</td><td>Free 1-on-1 FAFSA / WASFA help</td><td>College prep</td><td>futuresnw.org</td></tr>
+          <tr><td>Hopelink</td><td>Food, financial education, family stability</td><td>All stages</td><td>hopelink.org</td></tr>
+          <tr><td>ParentMap</td><td>Parenting advice &amp; family-fun calendar</td><td>All stages</td><td>parentmap.com</td></tr>
+          <tr><td>Seattle's Child</td><td>Local news &amp; kids' event calendar</td><td>All stages</td><td>seattleschild.com</td></tr>
+          <tr><td>PEPS (Program for Early Parent Support)</td><td>Peer parent-support groups, every stage</td><td>Prenatal–Teens</td><td>(206) 547-8570 · peps.org</td></tr>
+          <tr><td>Child Care Aware of Washington</td><td>Find child care &amp; subsidy help</td><td>Infants–Pre-K</td><td>1-800-446-1114 · childcareawarewa.org</td></tr>
+          <tr><td>Working Connections Child Care (DCYF)</td><td>State child-care subsidy</td><td>Infants–12</td><td>844-626-8687 · dcyf.wa.gov</td></tr>
+          <tr><td>Seattle Preschool Program</td><td>Free / low-cost preschool (sliding scale)</td><td>Ages 3–4</td><td>(206) 386-1050 · seattle.gov</td></tr>
+          <tr><td>Bellevue College Co-op Preschools</td><td>Parent-participation toddler–Pre-K classes</td><td>Toddler–Pre-K</td><td>bellevuecollege.edu/parented</td></tr>
+          <tr><td>Early Support for Infants &amp; Toddlers (ESIT)</td><td>Free birth-to-3 early intervention</td><td>Birth–Age 3</td><td>King County (206) 204-3536 · dcyf.wa.gov</td></tr>
+          <tr><td>Kindering</td><td>Developmental evaluations &amp; therapies</td><td>Birth–10</td><td>(425) 747-4004 · kindering.org</td></tr>
+          <tr><td>WestSide Baby</td><td>Diapers, clothing, car seats, gear</td><td>Birth–Age 5+</td><td>206-767-1662 · westsidebaby.org</td></tr>
+          <tr><td>Washington 211 (Crisis Connections)</td><td>Navigation: food, housing, disability help</td><td>All stages</td><td>Call 2-1-1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section class="block" id="events">
+  <div class="wrap">
+    <h2>Family Event Calendar</h2>
+    <p class="lead">A snapshot of family events around Seattle, good as of June 2026.</p>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Event</th><th>When</th><th>Where</th><th>Cost</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Summer Book Bingo for Youth &amp; Adults</td><td>Jun 9 – Sep 8, 2026</td><td>All Seattle Public Libraries</td><td><span class="pill free">Free</span></td></tr>
+          <tr><td>Seattle Spray Parks Open</td><td>Jun 9 – Sep 7, 2026</td><td>Multiple locations</td><td><span class="pill free">Free</span></td></tr>
+          <tr><td>Story &amp; Play Time, Creative Corner, Silly Science</td><td>Daily (Wed–Mon)</td><td>Seattle Children's Museum, Seattle Center</td><td><span class="pill fee">With admission</span></td></tr>
+          <tr><td>Lego Artemis Adventure</td><td>Through summer 2026</td><td>Pacific Science Center, Seattle</td><td><span class="pill fee">With admission</span></td></tr>
+          <tr><td>The Beautiful Game: How Soccer Connects Us All</td><td>Jun 9 – Sep 7, 2026</td><td>MOHAI, Seattle</td><td><span class="pill fee">With admission</span></td></tr>
+          <tr><td>Moomins' Sea Adventures</td><td>Mar 28 – Sep 6, 2026</td><td>National Nordic Museum, Seattle</td><td><span class="pill fee">With admission</span></td></tr>
+          <tr><td>Visit Kelsey Creek Farm</td><td>Daily, 9am–3pm</td><td>Kelsey Creek Farm, Bellevue</td><td><span class="pill free">Free</span></td></tr>
+          <tr><td>Baby Animals &amp; Berries Strawberry Festival</td><td>Jun 6 – 28, 2026</td><td>Swans Trail Farms, Snohomish</td><td><span class="pill fee">Fee</span></td></tr>
+          <tr><td>Family Open Gym</td><td>Mondays &amp; Tuesdays, 2:30–4pm</td><td>Montlake Community Center, Seattle</td><td><span class="pill fee">Low cost</span></td></tr>
+          <tr><td>Shoreline Indoor Playground Drop-In</td><td>Mon / Wed / Fri, 10am–noon</td><td>Shoreline Spartan Recreation Center</td><td><span class="pill fee">Low cost</span></td></tr>
+          <tr><td>Summer of Soccer (Seattle Parks &amp; Rec)</td><td>Summer 2026</td><td>Seattle Parks</td><td><span class="pill free">Free</span></td></tr>
+          <tr><td>SCMS "Concert Truck" Free Concerts</td><td>Jun 18 – Jul 6, 2026</td><td>Parks &amp; markets region-wide (incl. Bellevue, Renton)</td><td><span class="pill free">Free</span></td></tr>
+          <tr><td>Kirkland Summer Concerts (Marina Park)</td><td>Jul 9 – Sep 3, 2026 (Thu eve)</td><td>Marina Park, Kirkland</td><td><span class="pill free">Free</span></td></tr>
+          <tr><td>Downtown Bellevue "Live at Lunch"</td><td>Jul 7 – Sep 11, 2026</td><td>Downtown Bellevue</td><td><span class="pill free">Free</span></td></tr>
+          <tr><td>Seattle Symphony Free Community Concerts</td><td>Throughout 2025–26 season</td><td>Venues region-wide (incl. Renton)</td><td><span class="pill free">Free</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="lead" style="margin-top:18px;">
+      Live calendars: <a href="https://www.parentmap.com/calendar">ParentMap Family Fun Calendar</a>
+      (<span style="color:var(--accent)">parentmap.com/calendar</span>) ·
+      <a href="https://www.seattleschild.com/calendar/">Seattle's Child Calendar</a>
+      (<span style="color:var(--accent)">seattleschild.com/calendar</span>).
+    </p>
+  </div>
+</section>
+
+<!-- THINGS TO DO -->
+<section class="block" id="fun">
+  <div class="wrap">
+    <h2>Things to Do With Kids</h2>
+    <p class="lead">Free and cheap ways to get out of the house as a family, rain or shine.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Free Museum &amp; Zoo Passes</h3>
+        <p>A single Seattle Public Library card opens free passage to Woodland Park Zoo and the Seattle Aquarium, to MoPOP and the Museum of Flight and the Burke and more, one reservation to the week.</p>
+        <div class="meta"><span class="u">spl.libcal.com/passes</span></div>
+      </div>
+      <div class="card">
+        <h3>Parks, Spray Parks &amp; Farms</h3>
+        <p>Seattle's spray parks run the summer long, Kelsey Creek Farm in Bellevue stands free every day of it, and come June the U-pick berry farms throw open across the region.</p>
+        <div class="meta"><span class="u">parentmap.com/out-about</span></div>
+      </div>
+      <div class="card">
+        <h3>Rainy-Day Indoor Play</h3>
+        <p>The community-center open gyms, the indoor playgrounds, the children's museums and the library story times, these keep the little ones occupied through the long gray Seattle days.</p>
+        <div class="meta"><span class="u">seattleschild.com/calendar</span></div>
+      </div>
+      <div class="card">
+        <h3>Weekend Festivals &amp; Outings</h3>
+        <p>ParentMap's weekly "Weekender" gathers up the best of the free and family-friendly, the festivals, the hikes, the events, across Seattle and the Eastside and the South Sound.</p>
+        <div class="meta"><span class="u">parentmap.com</span></div>
+      </div>
+      <div class="card">
+        <h3><a href="https://www.seattle.gov/parks/community-centers">Seattle Parks &amp; Recreation</a></h3>
+        <p>Community centers and pools, and low-cost youth recreation and camps, across the whole city, and scholarships to be had.</p>
+        <div class="meta"><span class="u">seattle.gov/parks</span><span class="phone">(206) 684-5177</span></div>
+      </div>
+      <div class="card">
+        <h3><a href="https://kingcounty.gov/en/dept/dnrp/nature-recreation/parks-recreation/king-county-parks">King County Parks</a></h3>
+        <p>Hundreds of parks and trails, pools and play areas, across King County, for the family's adventuring the year round.</p>
+        <div class="meta"><span class="u">kingcounty.gov → Parks</span></div>
+      </div>
+      <div class="card">
+        <h3><a href="https://www.kidsquestmuseum.org">KidsQuest Children's Museum</a></h3>
+        <p>A hands-on STEAM play museum for the young child, in downtown Bellevue.</p>
+        <div class="meta"><span class="u">kidsquestmuseum.org</span><span class="phone">425-637-8100</span></div>
+      </div>
+      <div class="card">
+        <h3><a href="https://www.imaginecm.org">Imagine Children's Museum</a></h3>
+        <p>Three floors of hands-on play and learning, for families, up in Everett.</p>
+        <div class="meta"><span class="u">imaginecm.org</span><span class="phone">425-258-1006</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE FAMILY FUN -->
+<section class="block" id="free">
+  <div class="wrap">
+    <span class="stage-tag">Free &amp; Low-Cost · Every Stage</span>
+    <h2>Free Family Fun &amp; Lectures</h2>
+    <p class="lead">Free museum days, library passes to the zoo and aquarium, summer spray parks, and public lectures.</p>
+    <div class="grid">
+      <div class="card"><h3><a href="https://www.parentmap.com/calendar/28967">Free First Thursdays at Museums</a></h3><p>SAM and MOHAI, the Museum of Flight, the Burke, the Nordic, all thrown open free upon the first Thursday of the month.</p><div class="meta"><span class="u">parentmap.com</span></div></div>
+      <div class="card"><h3><a href="https://www.seattleschild.com/museums-to-explore-for-free-on-first-thursdays-and-fridays/">Free Museum Days Guide</a></h3><p>Seattle's Child's gathering of the free museum days, and of the museums that stand free always.</p><div class="meta"><span class="u">seattleschild.com</span></div></div>
+      <div class="card"><h3><a href="https://about.bankofamerica.com/en/making-an-impact/museums-on-us-partners">Bank of America "Museums on Us"</a></h3><p>The cardholder is given free general admission to the participating museums on the first full weekend of the month.</p><div class="meta"><span class="u">about.bankofamerica.com</span></div></div>
+      <div class="card"><h3><a href="https://spl.libcal.com/passes/Zoo">Library Museum Passes</a></h3><p>Reserve free passage to the zoo and the aquarium and the museums, on a Seattle Public Library or KCLS card.</p><div class="meta"><span class="u">spl.libcal.com/passes · kcls.org</span></div></div>
+      <div class="card"><h3><a href="https://phys.washington.edu/events/series/frontiers-physics">UW Frontiers of Physics Lectures</a></h3><p>Free public lectures by renowned scientists and Nobel laureates at the University of Washington, open to all comers, in the room or online.</p><div class="meta"><span class="u">phys.washington.edu</span></div></div>
+      <div class="card"><h3><a href="https://pacificsciencecenter.org/events/">Pacific Science Center, Events &amp; Talks</a></h3><p>Community science events, the sensory-friendly hours, and talks for the curious family.</p><div class="meta"><span class="u">pacificsciencecenter.org/events</span></div></div>
+      <div class="card"><h3><a href="https://www.parentmap.com/out-about">Free Outdoor Fun</a></h3><p>Spray parks and the free summer fishing weekends, festivals and beaches, gathered up week by week by ParentMap.</p><div class="meta"><span class="u">parentmap.com/out-about</span></div></div>
+      <div class="card"><h3><a href="https://www.spl.org/programs-and-services/fun-and-games/summer-of-learning">SPL Summer of Learning</a></h3><p>Free summer reading, and the doings that go with it, for all ages, through the Seattle Public Library.</p><div class="meta"><span class="u">spl.org</span></div></div>
+      <div class="card"><h3><a href="https://kcls.org/summer/">KCLS Summer Reading</a></h3><p>A free summer reading program, for every age, across the King County libraries.</p><div class="meta"><span class="u">kcls.org/summer</span></div></div>
+      <div class="card"><h3><a href="https://www.seattlecenter.com/events/featured-events/festal">Seattle Center Festál</a></h3><p>Some two dozen free cultural-heritage festivals, kept the year round at Seattle Center.</p><div class="meta"><span class="u">seattlecenter.com</span></div></div>
+      <div class="card"><h3><a href="https://nwfolklife.org/">Northwest Folklife Festival</a></h3><p>A free family festival of arts and music and dance, come each Memorial Day to Seattle Center.</p><div class="meta"><span class="u">nwfolklife.org</span></div></div>
+      <div class="card"><h3><a href="https://fryemuseum.org">Frye Art Museum</a></h3><p>A First Hill art museum whose doors stand free always, with programs made for families.</p><div class="meta"><span class="u">fryemuseum.org</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE CONCERTS, ARTS & LECTURES -->
+<section class="block" id="culture">
+  <div class="wrap">
+    <span class="stage-tag">Free &amp; Low-Cost · Arts &amp; Ideas</span>
+    <h2>Free Concerts, Arts &amp; Lectures</h2>
+    <p class="lead">Free music and public talks, from a neighborhood chamber-music truck to university lectures you can stream from home.</p>
+    <div class="grid">
+      <div class="card"><h3><a href="https://www.seattlechambermusic.org/concert-truck/">SCMS, The Concert Truck</a></h3><p>Free hour-long chamber-music concerts off a truck made over into a stage, in the parks and markets region-wide (Bellevue, Renton, Seattle and more), made for families, and for those who have never once listened before.</p><div class="meta"><span class="u">seattlechambermusic.org/concert-truck</span></div></div>
+      <div class="card"><h3><a href="https://www.washington.edu/lectures/events/">UW Public Lectures</a></h3><p>Free public talks by UW faculty and notable guests at Town Hall Seattle, the subjects running from birding to the machine mind, in the room or livestreamed.</p><div class="meta"><span class="u">washington.edu/lectures</span></div></div>
+      <div class="card"><h3><a href="https://phys.washington.edu/events/series/frontiers-physics">UW Frontiers of Physics</a></h3><p>Free public lectures by renowned scientists and Nobel laureates, long a favorite of the curious child and teen.</p><div class="meta"><span class="u">phys.washington.edu</span></div></div>
+      <div class="card"><h3><a href="https://lectures.org/events/">Seattle Arts &amp; Lectures</a></h3><p>Talks by authors and thinkers the year round, and free community gatherings besides, such as the Silent Reading at Seattle Center.</p><div class="meta"><span class="u">lectures.org</span></div></div>
+      <div class="card"><h3><a href="https://www.seattleschild.com/summer-outdoor-concerts-for-kids/">Free Summer Concerts Guide</a></h3><p>Seattle's Child's gathering of the free, family-friendly outdoor concert series, across Seattle and the Eastside and the South Sound.</p><div class="meta"><span class="u">seattleschild.com</span></div></div>
+      <div class="card"><h3><a href="https://pacificsciencecenter.org/events/">Pacific Science Center, Talks</a></h3><p>Community science events and family-friendly talks, throughout the year, at Seattle Center.</p><div class="meta"><span class="u">pacificsciencecenter.org/events</span></div></div>
+      <div class="card"><h3><a href="https://www.seattlesymphony.org/education-and-community/families/communityconcerts">Seattle Symphony, Free Community Concerts</a></h3><p>Free hour-long orchestra and chamber concerts, set in neighborhood halls across the Puget Sound, easy, and made for families.</p><div class="meta"><span class="u">seattlesymphony.org</span></div></div>
+      <div class="card"><h3><a href="https://townhallseattle.org/">Town Hall Seattle</a></h3><p>Talks and science and music the year round, in a historic downtown hall, the Saturday Family Concerts among them (free for ages 22 &amp; under).</p><div class="meta"><span class="u">townhallseattle.org</span><span class="phone">(206) 652-4255</span></div></div>
+      <div class="card"><h3><a href="https://www.parentmap.com/calendar/kirkland-summer-concerts-evening-series">Kirkland Summer Concerts</a></h3><p>Free Thursday-evening concerts at Kirkland's Marina Park, the whole summer long.</p><div class="meta"><span class="u">parentmap.com</span></div></div>
+      <div class="card"><h3><a href="https://www.bellevuedowntown.com/events">Downtown Bellevue, Live at Lunch</a></h3><p>Free midday summer concerts in the heart of Bellevue, and the Bellevue Family 4th and the arts events besides.</p><div class="meta"><span class="u">bellevuedowntown.com</span></div></div>
+      <div class="card"><h3><a href="https://www.greaterseattleonthecheap.com/summer-music-seattle/">Free Summer Concerts, Regional List</a></h3><p>A great, often-updated gathering of the free outdoor concert series across Seattle and the Eastside (Bellevue, Kirkland, Renton and more).</p><div class="meta"><span class="u">greaterseattleonthecheap.com</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MUSEUMS & ATTRACTIONS -->
+<section class="block" id="museums">
+  <div class="wrap">
+    <span class="stage-tag">Explore · All Ages</span>
+    <h2>Museums &amp; Attractions</h2>
+    <p class="lead">The local museums and attractions families love, many free on first Thursdays or with a library pass.</p>
+    <div class="grid">
+      <div class="card"><h3><a href="https://www.seattleartmuseum.org">Seattle Art Museum (SAM)</a></h3><p>A downtown art museum, its Family Saturdays free, and free admission besides on the first Thursday of the month.</p><div class="meta"><span class="u">seattleartmuseum.org</span></div></div>
+      <div class="card"><h3><a href="https://www.seattleaquarium.org">Seattle Aquarium</a></h3><p>A waterfront aquarium, the touch pools and the daily family presentations; the child of 3 &amp; under free.</p><div class="meta"><span class="u">seattleaquarium.org</span></div></div>
+      <div class="card"><h3><a href="https://www.zoo.org">Woodland Park Zoo</a></h3><p>Seattle's ninety-two acres of zoo, the Zoomazium indoor play space, and the family programs.</p><div class="meta"><span class="u">zoo.org</span></div></div>
+      <div class="card"><h3><a href="https://www.burkemuseum.org">Burke Museum</a></h3><p>The UW museum of natural history and culture; free admission on the first Thursday of the month.</p><div class="meta"><span class="u">burkemuseum.org</span></div></div>
+      <div class="card"><h3><a href="https://www.museumofflight.org">Museum of Flight</a></h3><p>A museum of air and space; the first-Thursday evenings free, and the child of 4 &amp; under free always.</p><div class="meta"><span class="u">museumofflight.org</span></div></div>
+      <div class="card"><h3><a href="https://www.mopop.org">MoPOP, Museum of Pop Culture</a></h3><p>A Seattle Center museum, the hands-on Sound Lab and the family gaming exhibits within it.</p><div class="meta"><span class="u">mopop.org</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PARKS & NATURE -->
+<section class="block" id="nature">
+  <div class="wrap">
+    <span class="stage-tag">Outdoors · All Ages</span>
+    <h2>Parks, Trails &amp; Nature</h2>
+    <p class="lead">Kid-friendly trails, free spray parks, nature centers, and free state-park days.</p>
+    <div class="grid">
+      <div class="card"><h3><a href="https://www.wta.org/">Washington Trails Association</a></h3><p>A finder of hikes and the reports of those gone before, the family- and kid-friendly trail guides among them, statewide.</p><div class="meta"><span class="u">wta.org</span></div></div>
+      <div class="card"><h3><a href="https://discoverpass.wa.gov/">Discover Pass &amp; Free State Park Days</a></h3><p>The state-parks access pass, and a dozen days a year besides when no pass at all is asked.</p><div class="meta"><span class="u">discoverpass.wa.gov</span></div></div>
+      <div class="card"><h3><a href="https://www.seattle.gov/parks/pools/wading-pools-and-sprayparks">Seattle Wading Pools &amp; Sprayparks</a></h3><p>Free summer spray parks and wading pools, across the neighborhoods of Seattle.</p><div class="meta"><span class="u">seattle.gov/parks</span></div></div>
+      <div class="card"><h3><a href="https://www.seattle.gov/parks/parks/camp-long/camp-long-environmental-learning-center">Camp Long Environmental Learning Center</a></h3><p>A West Seattle nature center, its trails and cabins and the children's programs.</p><div class="meta"><span class="u">seattle.gov/parks</span></div></div>
+      <div class="card"><h3><a href="https://mtsgreenway.org/">Mountains to Sound Greenway Trust</a></h3><p>Trails and volunteer events, and the youth's outdoor schooling, along the I-90 corridor.</p><div class="meta"><span class="u">mtsgreenway.org</span></div></div>
+      <div class="card"><h3><a href="https://www.seattleaquarium.org/explore-the-aquarium/programs/beach-naturalist/">Seattle Aquarium Beach Naturalist</a></h3><p>Free guided wandering of the low-tide beach, along the local shorelines, each summer.</p><div class="meta"><span class="u">seattleaquarium.org</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SUGGEST A RESOURCE -->
+<section class="block" id="suggest">
+  <div class="wrap">
+    <h2>Suggest a Resource</h2>
+    <p class="lead">Know a good resource we missed? Add it below.</p>
+    <div class="form-card">
+      <form id="suggestForm" novalidate>
+        <label for="f-name">Resource or organization name <span class="req">*</span></label>
+        <input type="text" id="f-name" name="name" placeholder="e.g. Sunshine Cooperative Preschool">
+
+        <label for="f-contact">Website or phone</label>
+        <input type="text" id="f-contact" name="contact" placeholder="e.g. example.org or (206) 555-1234">
+
+        <label for="f-category">Best-fit category</label>
+        <select id="f-category" name="category">
+          <option>Prenatal &amp; Pregnancy</option>
+          <option>Baby &amp; Toddler</option>
+          <option>Childcare &amp; Preschool</option>
+          <option>Special Needs &amp; Early Intervention</option>
+          <option>School Age (K–12)</option>
+          <option>Teens &amp; College</option>
+          <option>Parent Support</option>
+          <option>Food &amp; Basic Needs</option>
+          <option>Events / Things to Do</option>
+          <option>Other</option>
+        </select>
+
+        <label for="f-desc">Why is it helpful for families? <span class="req">*</span></label>
+        <textarea id="f-desc" name="desc" placeholder="A sentence or two about what they offer and who they serve."></textarea>
+
+        <label for="f-subname">Your name (optional)</label>
+        <input type="text" id="f-subname" name="subname">
+
+        <label for="f-subemail">Your email (optional, if you'd like a reply)</label>
+        <input type="email" id="f-subemail" name="subemail">
+
+        <p class="form-error hidden" id="f-err">Please add at least the resource name and a short description.</p>
+        <button type="submit" class="btn" id="f-submit">Prepare my suggestion</button>
+      </form>
+
+      <div class="form-result hidden" id="f-result">
+        <p><strong>Almost there.</strong> Hit the button to send it by email, or copy the text and send it however you like. A person reviews each one before it's added.</p>
+        <a class="btn" id="f-mailto" href="#suggest">Open email to send</a>
+        <label for="f-preview">Or copy this message:</label>
+        <textarea id="f-preview" readonly></textarea>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h2>About this guide</h2>
+    <p>Seattle Family Resources pulls together trusted, publicly available help for families in Seattle and King County. Every organization here runs on its own, so check with them directly for current hours, eligibility, and cost.</p>
+    <div class="disclaimer">
+      <strong>Not an emergency service.</strong> If you or your child are in immediate danger, call <code>911</code>. For a mental-health crisis, call or text <code>988</code> any time. Information here is for general guidance and is not medical, legal, or financial advice.
+    </div>
+    <p style="margin-top:14px;">Last updated June 2026. Addresses are written out so they work in any browser. Made as a free community resource.</p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var input = document.getElementById('orgFilter');
+    var table = document.getElementById('orgTable');
+    var countEl = document.getElementById('orgCount');
+    if (!input || !table || !countEl) { return; }
+    var rows = [];
+    var bodyRows = table.tBodies[0].rows;
+    for (var i = 0; i < bodyRows.length; i++) { rows.push(bodyRows[i]); }
+    var total = rows.length;
+
+    function update() {
+      var q = input.value.trim().toLowerCase();
+      var shown = 0;
+      for (var j = 0; j < rows.length; j++) {
+        var match = rows[j].textContent.toLowerCase().indexOf(q) !== -1;
+        if (match) { rows[j].classList.remove('hidden'); shown++; }
+        else { rows[j].classList.add('hidden'); }
+      }
+      countEl.textContent = shown + ' of ' + total + ' organizations';
+    }
+
+    input.addEventListener('input', update);
+    update();
+  })();
+
+  (function () {
+    var form = document.getElementById('suggestForm');
+    if (!form) { return; }
+    var err = document.getElementById('f-err');
+    var result = document.getElementById('f-result');
+    var mailto = document.getElementById('f-mailto');
+    var preview = document.getElementById('f-preview');
+    var TO = 'nichkt@gmail.com';
+
+    function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = val('f-name');
+      var desc = val('f-desc');
+      if (!name || !desc) { err.classList.remove('hidden'); return; }
+      err.classList.add('hidden');
+
+      var contact = val('f-contact') || '(not provided)';
+      var category = val('f-category');
+      var subname = val('f-subname') || '(anonymous)';
+      var subemail = val('f-subemail') || '(not provided)';
+
+      var subject = 'New resource suggestion: ' + name;
+      var body =
+        'Resource / organization: ' + name + '\n' +
+        'Website or phone: ' + contact + '\n' +
+        'Category: ' + category + '\n\n' +
+        'Why it helps families:\n' + desc + '\n\n' +
+        'Suggested by: ' + subname + '\n' +
+        'Reply email: ' + subemail;
+
+      mailto.href = 'mailto:' + TO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      preview.value = 'To: ' + TO + '\nSubject: ' + subject + '\n\n' + body;
+      result.classList.remove('hidden');
+      result.scrollIntoView();
+    });
+  })();
+
+  (function () {
+    var groups = document.querySelectorAll('.navgroup');
+    if (!groups.length) { return; }
+
+    function closeAll(except) {
+      for (var i = 0; i < groups.length; i++) {
+        if (groups[i] !== except) {
+          groups[i].classList.remove('open');
+          var b = groups[i].querySelector('.navbtn');
+          if (b) { b.setAttribute('aria-expanded', 'false'); }
+        }
+      }
+    }
+
+    for (var i = 0; i < groups.length; i++) {
+      (function (group) {
+        var btn = group.querySelector('.navbtn');
+        var menu = group.querySelector('.navmenu');
+        if (!btn) { return; }
+        btn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          var willOpen = !group.classList.contains('open');
+          closeAll(group);
+          if (willOpen) { group.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+          else { group.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+        });
+        if (menu) {
+          var links = menu.querySelectorAll('a');
+          for (var j = 0; j < links.length; j++) {
+            links[j].addEventListener('click', function () { closeAll(null); });
+          }
+        }
+      })(groups[i]);
+    }
+
+    document.addEventListener('click', function () { closeAll(null); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeAll(null); } });
+  })();
+
+  /* ---- Progressive-enhancement flag ---- */
+  document.documentElement.classList.add('js');
+
+  /* ---- Scroll progress bar + back-to-top ---- */
+  (function () {
+    var bar = document.getElementById('progress');
+    var top = document.getElementById('toTop');
+    function onScroll() {
+      var h = document.documentElement;
+      var st = h.scrollTop || document.body.scrollTop || 0;
+      var sh = h.scrollHeight - h.clientHeight;
+      var p = sh > 0 ? st / sh : 0;
+      if (bar) { bar.style.width = (p * 100).toFixed(2) + '%'; }
+      if (top) { top.classList.toggle('show', st > 600); }
+    }
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  /* ---- Reveal sections on scroll ---- */
+  (function () {
+    var secs = document.querySelectorAll('section.block');
+    for (var i = 0; i < secs.length; i++) { secs[i].classList.add('reveal'); }
+    if (!('IntersectionObserver' in window)) {
+      for (var j = 0; j < secs.length; j++) { secs[j].classList.add('in'); }
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    for (var k = 0; k < secs.length; k++) { io.observe(secs[k]); }
+  })();
+
+  /* ---- Animated stat counters ---- */
+  (function () {
+    var resEl = document.getElementById('stat-res');
+    var catEl = document.getElementById('stat-cat');
+    var cardCount = document.querySelectorAll('.card').length;
+    var catCount = document.querySelectorAll('section.block').length;
+    var resTarget = Math.floor(cardCount / 10) * 10;
+    function animate(el, target) {
+      if (!el) { return; }
+      var start = null, dur = 1300;
+      function step(ts) {
+        if (!start) { start = ts; }
+        var p = Math.min((ts - start) / dur, 1);
+        el.textContent = Math.floor(p * target).toString();
+        if (p < 1) { requestAnimationFrame(step); } else { el.textContent = target + '+'; }
+      }
+      requestAnimationFrame(step);
+    }
+    animate(resEl, resTarget);
+    animate(catEl, catCount);
+  })();
+
+</script>
+
+</body>
+</html>
