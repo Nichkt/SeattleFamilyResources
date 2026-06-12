@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>New Baby in Washington, A First-Year Roadmap</title>
+<style>
+  :root{
+    --bg:#f3f6fa; --bg2:#e9eff5;
+    --surface:#ffffff; --surface2:#f4f8fc;
+    --ink:#1a2a3a; --soft:#54657a; --line:#dce6ef;
+    --blue:#00558c; --blue2:#2a7fb8; --teal:#0b7a6b; --warn:#b1531e;
+    --display:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --shadow:0 1px 2px rgba(20,50,80,.06),0 8px 24px rgba(20,50,80,.07);
+    --r:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0f1620; --bg2:#0b121a; --surface:#162130; --surface2:#1c2937;
+      --ink:#eaf1f8; --soft:#a7b6c6; --line:#27384a;
+      --blue:#6db6e6; --blue2:#8fc7ee; --teal:#5ccdb4; --warn:#e09060;
+      --shadow:0 1px 2px rgba(0,0,0,.5),0 10px 28px rgba(0,0,0,.45);
+    }
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+       color:var(--ink);background:var(--bg);line-height:1.65;}
+  .wrap{max-width:920px;margin-inline:auto;padding-inline:22px;}
+  a{color:var(--blue);}
+
+  header.hero{background:linear-gradient(135deg,#00406b,#00558c 55%,#2a7fb8);color:#fff;padding:54px 0 46px;}
+  header.hero .wrap{}
+  .eyebrow{letter-spacing:.16em;text-transform:uppercase;font-size:.78rem;font-weight:700;opacity:.9;margin:0 0 10px;}
+  header.hero h1{font-family:var(--display);font-size:clamp(2rem,5vw,3rem);line-height:1.1;margin:0 0 12px;}
+  header.hero p{font-size:1.14rem;max-width:620px;margin:0;opacity:.97;}
+
+  /* sticky mini nav */
+  nav.toc{position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow);}
+  nav.toc ul{list-style:none;display:flex;flex-wrap:wrap;gap:2px;margin:0;padding:8px 22px;max-width:920px;margin-inline:auto;}
+  nav.toc a{text-decoration:none;color:var(--soft);font-weight:600;font-size:.9rem;padding:7px 11px;border-radius:8px;}
+  nav.toc a:hover{background:var(--surface2);color:var(--blue);}
+
+  /* progress */
+  .progress-wrap{background:var(--surface);border-bottom:1px solid var(--line);}
+  .progress-inner{max-width:920px;margin-inline:auto;padding:10px 22px;display:flex;align-items:center;gap:14px;font-size:.9rem;color:var(--soft);}
+  .bar{flex:1;height:8px;border-radius:999px;background:var(--bg2);overflow:hidden;}
+  .bar > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--blue2));transition:width .3s ease;}
+
+  .intro{padding:34px 0 6px;}
+  .intro p{color:var(--soft);font-size:1.05rem;max-width:680px;}
+  .disclaimer{background:var(--surface2);border:1px solid var(--line);border-inline-start:5px solid var(--warn);
+              border-radius:var(--r);padding:14px 18px;margin:18px 0 0;font-size:.95rem;color:var(--ink);}
+
+  section.stage{padding:30px 0 6px;}
+  .stage-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:2px solid var(--line);padding-bottom:8px;margin-bottom:6px;}
+  .stage-head h2{font-family:var(--display);font-size:1.6rem;margin:0;color:var(--ink);}
+  .stage-when{font-size:.82rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--blue);}
+  .subhead{font-family:var(--display);font-size:1.2rem;color:var(--blue);margin:26px 0 0;}
+  .stage-note{color:var(--soft);font-size:.98rem;margin:10px 0 0;}
+
+  ul.tasks{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:14px;}
+  li.task{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);
+          padding:16px 18px;display:grid;grid-template-columns:26px 1fr;gap:4px 14px;}
+  li.task input[type=checkbox]{width:20px;height:20px;margin-top:3px;accent-color:var(--teal);cursor:pointer;}
+  li.task .body{min-width:0;}
+  li.task .do{font-weight:700;font-size:1.06rem;color:var(--ink);display:inline;}
+  li.task input:checked ~ .body .do{text-decoration:line-through;color:var(--soft);}
+  .pill{display:inline-block;margin-inline-start:8px;padding:2px 10px;border-radius:999px;font-size:.74rem;font-weight:700;
+        letter-spacing:.02em;vertical-align:middle;white-space:nowrap;}
+  .pill.deadline{background:rgba(177,83,30,.14);color:var(--warn);}
+  .pill.soon{background:rgba(0,85,140,.12);color:var(--blue);}
+  .pill.ongoing{background:rgba(11,122,107,.14);color:var(--teal);}
+  li.task p{margin:7px 0 0;color:var(--soft);font-size:.96rem;}
+  li.task .src{margin-top:8px;font-size:.84rem;}
+  li.task .src a{color:var(--blue2);word-break:break-word;}
+  li.task.optional{grid-template-columns:1fr;}
+
+  footer{margin-top:46px;background:var(--surface);border-top:1px solid var(--line);padding:30px 0 42px;}
+  footer .wrap{color:var(--soft);font-size:.9rem;}
+  footer h2{font-family:var(--display);color:var(--ink);font-size:1.2rem;margin:0 0 8px;}
+  footer code{background:var(--surface2);padding:1px 6px;border-radius:6px;}
+
+  @media print{
+    nav.toc,.progress-wrap{display:none;}
+    header.hero{background:none;color:#000;padding:0 0 12px;border-bottom:2px solid #000;}
+    li.task{box-shadow:none;break-inside:avoid;}
+    body{background:#fff;}
+  }
+  @media (prefers-reduced-motion: reduce){*{transition:none!important;scroll-behavior:auto!important;}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">A Washington State Guide for New Parents</p>
+    <h1>New Baby in Washington: Your First-Year Roadmap</h1>
+    <p>A plain, step-by-step checklist of the time-sensitive things to do in your baby's first year, with the deadlines that are easy to miss and a link to the official source for each one.</p>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Section navigation">
+  <ul>
+    <li><a href="#before">Before birth</a></li>
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="#prepare">Get ready</a></li>
+    <li><a href="#hospital">At the hospital</a></li>
+    <li><a href="#twoweeks">First 2 weeks</a></li>
+    <li><a href="#twomonths">First 2 months</a></li>
+    <li><a href="#year">3–12 months</a></li>
+    <li><a href="#niceto">Nice to have</a></li>
+  </ul>
+</nav>
+
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <span id="progress-label">0 of 0 done</span>
+    <span class="bar" aria-hidden="true"><span id="progress-fill"></span></span>
+  </div>
+</div>
+
+<section class="intro">
+  <div class="wrap">
+    <p>Welcoming a baby is a lot at once. This roadmap focuses on the practical, paperwork-and-deadline side so nothing important slips by. Check off each item as you go. The progress bar above keeps track for this visit.</p>
+    <div class="disclaimer">
+      <strong>How to use this.</strong> This is a general guide for Washington families, not medical, legal, or financial advice. Rules, amounts, and timelines change, so confirm the specifics on each official source linked below. For your baby's health questions, talk with your pediatrician. In an emergency, call <strong>911</strong>.
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE BIRTH -->
+<section class="stage" id="before">
+  <div class="wrap">
+    <div class="stage-head">
+      <h2>Before your baby arrives</h2>
+      <span class="stage-when">During pregnancy</span>
+    </div>
+    <ul class="tasks">
+
+      <li class="task">
+        <input type="checkbox" id="b1">
+        <div class="body">
+          <span class="do">Learn how Paid Family &amp; Medical Leave works and tell your employer</span><span class="pill soon">Plan ahead</span>
+          <p>Washington's state program can pay you for time off to bond with your baby (and to recover, if you give birth), generally up to 12 weeks, with more possible in some situations. You usually apply once your leave begins, and claims have filing deadlines, so read the rules early and give your employer written notice.</p>
+          <div class="src">Source: <a href="https://paidleave.wa.gov/">paidleave.wa.gov</a></div>
+        </div>
+      </li>
+
+      <li class="task">
+        <input type="checkbox" id="b2">
+        <div class="body">
+          <span class="do">Apply for health coverage (Apple Health) if you may qualify</span><span class="pill soon">During pregnancy</span>
+          <p>Apple Health (Medicaid) covers pregnancy for many Washington families based on income, and a baby born to a parent on Apple Health is typically enrolled automatically for the first year. Apply through Washington Healthplanfinder; you can do this any time, including during pregnancy.</p>
+          <div class="src">Source: <a href="https://www.wahealthplanfinder.org/">wahealthplanfinder.org</a> · <a href="https://www.hca.wa.gov/">hca.wa.gov</a></div>
+        </div>
+      </li>
+
+      <li class="task">
+        <input type="checkbox" id="b3">
+        <div class="body">
+          <span class="do">Sign up for WIC</span><span class="pill ongoing">Pregnancy to age 5</span>
+          <p>WIC provides monthly food benefits, nutrition support, and breastfeeding help for eligible pregnant people, new parents, and children up to age 5. Enroll during pregnancy so support is in place when the baby comes.</p>
+          <div class="src">Source: <a href="https://doh.wa.gov/you-and-your-family/wic">doh.wa.gov/wic</a></div>
+        </div>
+      </li>
+
+      <li class="task">
+        <input type="checkbox" id="b4">
+        <div class="body">
+          <span class="do">Get on childcare waitlists now</span><span class="pill deadline">Start early</span>
+          <p>Infant care in the Seattle area is scarce, and licensed programs often have waitlists up to a year. Many families start looking during pregnancy. Child Care Aware of Washington can help you find options and see if you qualify for help paying.</p>
+          <div class="src">Source: <a href="https://childcareawarewa.org/">childcareawarewa.org</a> · Family Center 1-800-446-1114</div>
+        </div>
+      </li>
+
+      <li class="task">
+        <input type="checkbox" id="b5">
+        <div class="body">
+          <span class="do">Choose a pediatrician and get your car seat checked</span><span class="pill soon">Before the due date</span>
+          <p>Pick a pediatrician or family doctor and confirm they take your insurance. Install your rear-facing infant car seat ahead of time, and have it checked for free by a certified technician, a correctly installed seat is required to bring your baby home by car.</p>
+          <div class="src">Source: <a href="https://wacarseats.com/">wacarseats.com</a> · <a href="https://www.seattlechildrens.org/health-safety/injury-prevention/car-seat-checks/">Seattle Children's car-seat checks</a></div>
+        </div>
+      </li>
+
+      <li class="task"><input type="checkbox" id="b6"><div class="body"><span class="do">Get caregiver vaccines to protect the baby</span><span class="pill soon">During pregnancy</span><p>Newborns are too young for most vaccines, so the people around them are the shield. The pregnant person should get the Tdap (whooping cough) vaccine during pregnancy, and parents, grandparents, and regular caregivers should be current on Tdap, flu, and COVID before meeting the baby. <strong>Why:</strong> whooping cough and flu can be dangerous for an infant, and surrounding the baby with vaccinated adults lowers the risk.</p><div class="src">Source: <a href="https://www.cdc.gov/vaccines/">cdc.gov/vaccines</a></div></div></li>
+      <li class="task"><input type="checkbox" id="b7"><div class="body"><span class="do">Decide about cord blood banking</span><span class="pill soon">Before birth</span><p>You can save your baby's umbilical cord blood in a private bank for a fee, donate it to a public bank for free, or do nothing. If you want to bank or donate, you usually arrange it weeks ahead and bring a kit to the birth, so decide early and ask your provider.</p></div></li>
+      <li class="task"><input type="checkbox" id="b8"><div class="body"><span class="do">Make a birth plan and tour your hospital</span><span class="pill soon">Third trimester</span><p>Write down your preferences for labor and delivery, take a hospital or birth-center tour, and consider hiring a doula for support. <strong>Why:</strong> knowing the place and having your wishes written down makes the day calmer, even when things change.</p></div></li>
+      <li class="task"><input type="checkbox" id="b9"><div class="body"><span class="do">Prepare pets and older siblings</span><span class="pill ongoing">Before birth</span><p>Get pets used to baby sounds and smells ahead of time, and handle any vet or training needs. For older kids, read books about being a big sibling and talk through what will change. <strong>Why:</strong> a little preparation eases the adjustment for everyone in the house.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- CLASSES -->
+<section class="stage" id="classes">
+  <div class="wrap">
+    <div class="stage-head">
+      <h2>Classes worth taking</h2>
+      <span class="stage-when">Pregnancy through the early months</span>
+    </div>
+    <p class="stage-note">Most of these fill up, so sign up during pregnancy. Many hospitals run their childbirth and newborn classes for free or bill them to insurance, and several offer them in Spanish and other languages. Ask your birth hospital what is included with your delivery before paying out of pocket.</p>
+    <ul class="tasks">
+
+      <li class="task"><input type="checkbox" id="c1"><div class="body"><span class="do">Childbirth preparation class</span><span class="pill soon">Mid-pregnancy</span><p>A multi-week or weekend class covers labor, comfort and pain-relief options, when to go to the hospital, and what recovery looks like. <strong>Why:</strong> knowing what is normal lowers fear on the day and helps you make decisions when things move fast. Take it early enough to finish before the due date.</p><div class="src">Source: <a href="https://www.parenttrust.org/about/programs/great-starts/">Parent Trust Great Starts</a> · <a href="https://www.swedish.org/services/pregnancy-and-childbirth/childbirth-and-parenting-classes">Swedish</a></div></div></li>
+
+      <li class="task"><input type="checkbox" id="c2"><div class="body"><span class="do">Newborn care basics</span><span class="pill soon">Third trimester</span><p>Diapering, bathing, soothing, sleep, feeding cues, and reading early illness signs, all the day-to-day care nobody is born knowing. <strong>Why:</strong> a few hours of practice with a teacher saves a lot of guessing in the first sleepless week.</p><div class="src">Source: <a href="https://www.parenttrust.org/about/programs/great-starts/">Parent Trust</a> · <a href="https://www.evergreenhealth.com/health-services/pregnancy-birth/classes/labor-birth-classes/">EvergreenHealth</a></div></div></li>
+
+      <li class="task"><input type="checkbox" id="c3"><div class="body"><span class="do">Breastfeeding / chestfeeding class</span><span class="pill soon">Before birth</span><p>Learn latch, positioning, how to know the baby is getting enough, and where to turn when it hurts or stalls. <strong>Why:</strong> most early feeding problems show up in the first days, and knowing the basics ahead of time makes them far easier to solve.</p><div class="src">Source: <a href="https://www.swedish.org/services/pregnancy-and-childbirth/childbirth-and-parenting-classes">Swedish</a> · <a href="https://perinatalsupport.org/">perinatalsupport.org</a></div></div></li>
+
+      <li class="task"><input type="checkbox" id="c4"><div class="body"><span class="do">Infant CPR and safety</span><span class="pill deadline">Before baby comes home</span><p>An infant CPR and choking-response class, often paired with general baby safety. Seattle Children's "Babysafe" is a well-known local option. <strong>Why:</strong> these are the skills you hope never to use, but you want them already in your hands, not something you look up in an emergency.</p><div class="src">Source: <a href="https://www.seattlechildrens.org/health-safety/classes-events/babysafe/">Seattle Children's Babysafe</a></div></div></li>
+
+      <li class="task"><input type="checkbox" id="c5"><div class="body"><span class="do">A class for partners and other caregivers</span><span class="pill soon">Before birth</span><p>Classes like Conscious Fathering focus on partners, grandparents, and anyone else who will care for the baby, so support does not fall on one person. <strong>Why:</strong> when more than one adult knows how to soothe, feed, and change the baby, everyone gets more rest.</p><div class="src">Source: <a href="https://www.parenttrust.org/about/programs/great-starts/">Parent Trust Great Starts</a></div></div></li>
+
+      <li class="task"><input type="checkbox" id="c6"><div class="body"><span class="do">Tour and pre-register at your birth hospital</span><span class="pill soon">Third trimester</span><p>Most hospitals offer a maternity tour and a class lineup tied to where you will deliver. EvergreenHealth (Kirkland), Overlake (Bellevue), Valley Medical (Renton), Swedish, and UW Medicine all run parent classes. <strong>Why:</strong> seeing the unit and finishing paperwork early makes arrival calmer.</p><div class="src">Source: <a href="https://www.overlakehospital.org/services/childbirth-center">Overlake</a> · <a href="https://www.valleymed.org/services/all-specialties/birth-center--neonatal-icu/birth-prep-and-parent-education">Valley Medical</a> · <a href="https://www.uwmedicine.org/patient-resources/support-groups-classes">UW Medicine</a></div></div></li>
+
+      <li class="task"><input type="checkbox" id="c7"><div class="body"><span class="do">Join a new-parent peer group</span><span class="pill ongoing">Newborn months</span><p>PEPS runs Seattle-area groups matched to your baby's stage, where new parents meet weekly and trade real-life help. <strong>Why:</strong> the early months can be isolating, and a steady group of parents on the same timeline is one of the best things for your own wellbeing.</p><div class="src">Source: <a href="https://peps.org/programs">peps.org/programs</a></div></div></li>
+
+      <li class="task"><input type="checkbox" id="c8"><div class="body"><span class="do">Parent-baby and parent-education classes (after birth)</span><span class="pill ongoing">First year</span><p>Once the baby arrives, parent-infant classes give you somewhere to go, plus play, milestones, and a teacher to ask. Bellevue College has parent-infant and "Infants and Wobblers" classes (birth to about 15 months), and North Seattle College runs a parent-education program. <strong>Why:</strong> these build routine, friendships, and steady, low-cost guidance through the year.</p><div class="src">Source: <a href="https://www.bellevuecollege.edu/parented/classes/infants/">Bellevue College</a> · <a href="https://northseattle.edu/programs/parent-education">North Seattle College</a></div></div></li>
+
+    </ul>
+  </div>
+</section>
+
+<!-- GETTING READY -->
+<section class="stage" id="prepare">
+  <div class="wrap">
+    <div class="stage-head">
+      <h2>Getting ready: home, gear, and food</h2>
+      <span class="stage-when">Weeks before the due date</span>
+    </div>
+    <p class="stage-note">This part is general newborn-care guidance, not Washington-specific. A useful rule: buy less than you think, especially in newborn sizes, babies grow fast, and you can always restock. Borrowing and secondhand are great for most gear; buy new for the car seat and crib mattress.</p>
+
+    <h3 class="subhead">Sleep and the nursery</h3>
+    <ul class="tasks">
+      <li class="task"><input type="checkbox" id="p1"><div class="body"><span class="do">Set up a safe sleep space</span><span class="pill soon">Before birth</span><p>A bassinet or crib with a firm, flat mattress and a fitted sheet, and nothing else. No pillows, bumpers, loose blankets, or soft toys. Always place your baby on their back to sleep. Plan for the baby to sleep in your room (not your bed) for the early months.</p><div class="src">Source: <a href="https://www.healthychildren.org/">healthychildren.org (AAP safe sleep)</a></div></div></li>
+      <li class="task"><input type="checkbox" id="p2"><div class="body"><span class="do">Choose a crib or bassinet that meets current safety standards</span><span class="pill soon">Before birth</span><p>If buying used or accepting a hand-me-down, check it hasn't been recalled and that all parts are present and sturdy. You'll lower the crib mattress before your baby can sit or pull up.</p><div class="src">Source: <a href="https://www.cpsc.gov/">cpsc.gov (recalls &amp; product safety)</a></div></div></li>
+      <li class="task"><input type="checkbox" id="p3"><div class="body"><span class="do">Bedding and sleep basics</span><span class="pill ongoing">A few of each</span><p>Two to three fitted sheets, a couple of waterproof mattress protectors, and wearable blankets or sleep sacks instead of loose blankets. A white-noise machine, blackout curtains, and a baby monitor are optional. <strong>Why:</strong> sleep sacks keep your baby warm without the suffocation risk that loose blankets in a crib can pose.</p></div></li>
+      <li class="task"><input type="checkbox" id="p4"><div class="body"><span class="do">A changing spot and a feeding chair</span><span class="pill ongoing">Optional</span><p>A changing table or just a pad on a low dresser works. A comfortable chair near the crib makes night feedings easier.</p></div></li>
+    </ul>
+
+    <h3 class="subhead">Feeding</h3>
+    <ul class="tasks">
+      <li class="task"><input type="checkbox" id="p5"><div class="body"><span class="do">Decide your feeding plan and line up support</span><span class="pill soon">Before birth</span><p>Breast, formula, or both, any of these can work. If you plan to breastfeed, arrange lactation support in advance; many parents hit early questions in the first days. Free help is available.</p><div class="src">Source: <a href="https://perinatalsupport.org/">perinatalsupport.org</a> · La Leche League of WA</div></div></li>
+      <li class="task"><input type="checkbox" id="p6"><div class="body"><span class="do">Breastfeeding/pumping supplies</span><span class="pill ongoing">If applicable</span><p>Nursing pillow, a couple of nursing bras, washable or disposable breast pads, and nipple cream. Your health plan often covers a breast pump, check before buying one. Add milk storage bags or bottles and a way to label and date them.</p></div></li>
+      <li class="task"><input type="checkbox" id="p7"><div class="body"><span class="do">Bottle-feeding supplies</span><span class="pill ongoing">If applicable</span><p>A few bottles with slow-flow newborn nipples, a bottle brush, a drying rack, and, if using formula, the type your pediatrician suggests. A dishwasher basket or simple sterilizer helps. Don't stock up on one bottle type until you know your baby likes it.</p></div></li>
+      <li class="task"><input type="checkbox" id="p8"><div class="body"><span class="do">Burp cloths and a feeding station</span><span class="pill ongoing">A handful</span><p>You'll want burp cloths everywhere. Set up a spot with water, snacks, and a phone charger where you'll spend a lot of time feeding.</p></div></li>
+      <li class="task"><input type="checkbox" id="p9"><div class="body"><span class="do">Starting solids (around 6 months)</span><span class="pill ongoing">~6 months</span><p>Later in the year you'll add a high chair, soft-tipped spoons, small bowls, and bibs. Introduce single foods a few days apart to watch for reactions, skip honey before age 1, and avoid choking hazards (whole grapes, nuts, hard chunks). Ask your pediatrician about timing and allergens.</p><div class="src">Source: <a href="https://www.healthychildren.org/">healthychildren.org (starting solids)</a></div></div></li>
+      <li class="task"><input type="checkbox" id="p10"><div class="body"><span class="do">Make baby food and stock the freezer</span><span class="pill ongoing">~6 months on</span><p>Simple homemade purees (cooked and blended fruits, vegetables, or grains) freeze well in ice-cube trays, then move to labeled bags for single-serving portions. Store-bought pouches are fine too. Always check temperature before serving.</p></div></li>
+    </ul>
+
+    <h3 class="subhead">Diapering</h3>
+    <ul class="tasks">
+      <li class="task"><input type="checkbox" id="p11"><div class="body"><span class="do">Diapers and wipes</span><span class="pill soon">Before birth</span><p>Have newborn and size 1 on hand, but don't overbuy the newborn size. Decide cloth, disposable, or a mix. Stock plenty of wipes.</p></div></li>
+      <li class="task"><input type="checkbox" id="p12"><div class="body"><span class="do">Changing supplies</span><span class="pill ongoing">Before birth</span><p>A changing pad with washable covers, diaper cream, and a diaper pail or a steady supply of bags. Keep a small kit in each part of the home so you're never far from supplies.</p></div></li>
+    </ul>
+
+    <h3 class="subhead">Clothing and laundry</h3>
+    <ul class="tasks">
+      <li class="task"><input type="checkbox" id="p13"><div class="body"><span class="do">A starter wardrobe</span><span class="pill ongoing">Before birth</span><p>Bodysuits, footed sleepers, socks, a hat, and (in cooler months) a warm layer. Buy a few newborn pieces and more 0–3 and 3–6 month sizes, newborn clothes are outgrown quickly. Add a couple of swaddle blankets.</p></div></li>
+      <li class="task"><input type="checkbox" id="p14"><div class="body"><span class="do">Wash everything before first use</span><span class="pill ongoing">Before birth</span><p>Launder new clothes, bedding, and swaddles with a fragrance-free, baby-safe detergent before your baby wears or uses them. <strong>Why:</strong> newborn skin is sensitive, and washing removes manufacturing and shipping residues that can irritate it.</p></div></li>
+    </ul>
+
+    <h3 class="subhead">Bath and grooming</h3>
+    <ul class="tasks">
+      <li class="task"><input type="checkbox" id="p15"><div class="body"><span class="do">Bath and grooming kit</span><span class="pill ongoing">Before birth</span><p>An infant tub or sink insert, a mild baby wash, soft washcloths, and a hooded towel. Add baby nail clippers or a file, a soft brush, a bulb syringe or nasal aspirator, and a digital thermometer (a rectal reading is most accurate for newborns). <strong>Why:</strong> until the umbilical cord stump falls off (usually a week or two), give sponge baths instead of tub baths, and a few baths a week is plenty, frequent washing dries delicate skin.</p></div></li>
+    </ul>
+
+    <h3 class="subhead">Home safety and baby-proofing</h3>
+    <ul class="tasks">
+      <li class="task"><input type="checkbox" id="p16"><div class="body"><span class="do">Anchor furniture and TVs</span><span class="pill deadline">Before crawling</span><p>Tip-overs are a serious hazard. Strap dressers, bookshelves, and TVs to the wall with anti-tip hardware. Do this early, well before your baby is mobile (often by 6 months).</p><div class="src">Source: <a href="https://www.cpsc.gov/">cpsc.gov (anti-tip &amp; nursery safety)</a></div></div></li>
+      <li class="task"><input type="checkbox" id="p17"><div class="body"><span class="do">Baby-proof the basics</span><span class="pill soon">By ~6 months</span><p>Outlet covers, cabinet and drawer latches (especially for cleaners and medicines), corner guards, safety gates at stairs, and cordless or tied-up blind cords. Move choking hazards and small objects up high.</p></div></li>
+      <li class="task"><input type="checkbox" id="p18"><div class="body"><span class="do">Detectors and emergency numbers</span><span class="pill soon">Before birth</span><p>Test smoke and carbon-monoxide detectors. Post your pediatrician's after-hours line and the free Poison Control number, 1-800-222-1222, where you'll find them fast.</p></div></li>
+      <li class="task"><input type="checkbox" id="p19"><div class="body"><span class="do">A small first-aid setup</span><span class="pill ongoing">Before birth</span><p>Saline drops, the bulb syringe, the thermometer, and infant pain/fever medicine, but only give medicine at the dose and age your pediatrician approves. Consider an infant CPR class.</p></div></li>
+      <li class="task"><input type="checkbox" id="p32"><div class="body"><span class="do">Turn your water heater down to 120°F</span><span class="pill soon">Before bath time</span><p>Set the water heater to about 120°F (49°C). <strong>Why:</strong> a baby's thin skin burns far faster than an adult's, and tap water hotter than this can cause a serious scald in seconds.</p><div class="src">Source: <a href="https://www.healthychildren.org/">healthychildren.org</a></div></div></li>
+      <li class="task"><input type="checkbox" id="p33"><div class="body"><span class="do">Lock up firearms and medications</span><span class="pill soon">Before birth</span><p>Store any firearms unloaded and locked, with ammunition kept separately, and keep all medicines, vitamins, and cleaners up high or locked away. <strong>Why:</strong> safe storage is one of the most effective ways to prevent the most serious childhood injuries.</p></div></li>
+      <li class="task"><input type="checkbox" id="p34"><div class="body"><span class="do">Register your car seat and crib</span><span class="pill ongoing">After you buy</span><p>Send in the card or register online with the manufacturer. <strong>Why:</strong> it's the only way the company can reach you directly if there's a safety recall.</p><div class="src">Source: <a href="https://www.cpsc.gov/">cpsc.gov</a></div></div></li>
+    </ul>
+
+    <h3 class="subhead">Out and about</h3>
+    <ul class="tasks">
+      <li class="task"><input type="checkbox" id="p20"><div class="body"><span class="do">Car seat, stroller, and carrier</span><span class="pill soon">Before birth</span><p>A rear-facing infant car seat is the one item to buy new and have checked. Add a stroller and/or a soft carrier or wrap. (See the free car-seat checks in the "Before birth" section.)</p></div></li>
+      <li class="task"><input type="checkbox" id="p31"><div class="body"><span class="do">Pick the right type of car seat for a newborn</span><span class="pill soon">Before birth</span><p><strong>Why it matters:</strong> a moving car is no place to hold a baby in your arms, so newborns ride buckled into a rear-facing seat, it's the single best thing you can do for crash safety, and it's required to leave the hospital by car. Two types fit from birth: an <em>infant car seat</em> (rear-facing only, clicks into a base that stays buckled in the car, and lifts out as a carrier, most are rated from about 4–5 lbs, so they fit small newborns) or a <em>convertible seat</em> (used rear-facing first, then forward-facing later, but it stays installed in the car). Buy this item new so you know its history and that it isn't past its expiration date. If your baby is premature or very small, the hospital may do a short "car-seat trial" before discharge to make sure they breathe comfortably while reclined. Then have it installed and checked by a certified technician, because incorrect installation is the mistake parents make most.</p><div class="src">Source: <a href="https://wacarseats.com/">wacarseats.com</a></div></div></li>
+
+      <li class="task"><input type="checkbox" id="p21"><div class="body"><span class="do">Stock a diaper bag</span><span class="pill ongoing">Before birth</span><p>Diapers, wipes, a full change of clothes, a burp cloth, a spare bag, and feeding supplies. Keep it packed by the door so leaving the house is one less decision.</p></div></li>
+    </ul>
+
+    <h3 class="subhead">For the parents</h3>
+    <ul class="tasks">
+      <li class="task"><input type="checkbox" id="p22"><div class="body"><span class="do">Postpartum recovery supplies</span><span class="pill soon">Before birth</span><p>For the birthing parent: maternity pads, a peri bottle, comfortable high-waisted clothing, and anything your provider recommends. Recovery takes weeks, set up a comfortable spot to rest and feed.</p></div></li>
+      <li class="task"><input type="checkbox" id="p23"><div class="body"><span class="do">Line up help and a rest plan</span><span class="pill soon">Before birth</span><p>Arrange family, friends, a meal train, or a postpartum doula for the first weeks. Agree in advance on who does what at night. Accepting help is not optional luxury, it protects everyone's health.</p></div></li>
+      <li class="task"><input type="checkbox" id="p24"><div class="body"><span class="do">Know the signs of postpartum mood changes</span><span class="pill ongoing">Ongoing</span><p>Sadness, anxiety, or feeling overwhelmed beyond the first couple of weeks deserves support, it's common and treatable. Save the Perinatal Support Washington warm line now so it's there if you need it.</p><div class="src">Source: <a href="https://perinatalsupport.org/">perinatalsupport.org</a> · 1-888-404-7763</div></div></li>
+    </ul>
+
+    <h3 class="subhead">Stock the kitchen</h3>
+    <ul class="tasks">
+      <li class="task"><input type="checkbox" id="p25"><div class="body"><span class="do">Batch-cook and freeze meals</span><span class="pill soon">Last weeks of pregnancy</span><p>Cooking is hard with a newborn. Make and freeze easy, reheatable meals, soups, casseroles, baked pasta, breakfast burritos, and label each with the date and reheating notes.</p></div></li>
+      <li class="task"><input type="checkbox" id="p26"><div class="body"><span class="do">Stock easy, one-handed snacks</span><span class="pill ongoing">Before birth</span><p>You'll often eat while feeding the baby. Keep granola bars, nuts, fruit, and a refillable water bottle within reach. Set up a grocery-delivery account for the first weeks.</p></div></li>
+    </ul>
+
+    <h3 class="subhead">Paperwork and money to line up</h3>
+    <ul class="tasks">
+      <li class="task"><input type="checkbox" id="p27"><div class="body"><span class="do">Pre-register at your birth hospital</span><span class="pill soon">Third trimester</span><p>Most hospitals let you complete admission and insurance paperwork ahead of time, so check-in is faster when labor starts.</p></div></li>
+      <li class="task"><input type="checkbox" id="p28"><div class="body"><span class="do">Pack a hospital bag</span><span class="pill deadline">By ~36 weeks</span><p>IDs and insurance card, going-home outfit for the baby plus the installed car seat, comfortable clothes and toiletries, phone charger, and any birth preferences. Have it ready early in case the baby comes sooner.</p></div></li>
+      <li class="task"><input type="checkbox" id="p29"><div class="body"><span class="do">Plan to add the baby to insurance</span><span class="pill deadline">~30 days after birth</span><p>Adding a newborn to a health plan has a deadline (often about 30 days). Know your plan's rule now so there's no gap in coverage. (Apple Health babies are usually enrolled automatically, see the "First 2 weeks" section.)</p></div></li>
+      <li class="task"><input type="checkbox" id="p30"><div class="body"><span class="do">Update your will and consider life insurance and savings</span><span class="pill ongoing">Around birth</span><p>Name a guardian for your child in a will, review beneficiaries, and consider life insurance. If you want to save for education, you can open a Washington 529 account any time.</p><div class="src">Source: <a href="https://wastate529.wa.gov/">wastate529.wa.gov</a></div></div></li>
+      <li class="task"><input type="checkbox" id="p35"><div class="body"><span class="do">Update your taxes and work benefits</span><span class="pill soon">Around birth</span><p>A new baby is a tax dependent, so update your W-4 withholding, and if your employer offers a Dependent Care FSA, a birth usually opens a window to enroll. <strong>Why:</strong> these adjust your paycheck and lower the cost of childcare, but only if you act within the enrollment window.</p></div></li>
+      <li class="task"><input type="checkbox" id="p36"><div class="body"><span class="do">Update beneficiaries and consider a trust</span><span class="pill ongoing">Around birth</span><p>Review the named beneficiaries on your retirement accounts and life insurance, and consider a trust so money is managed for your child if anything happens to you. <strong>Why:</strong> beneficiary forms override a will, so out-of-date ones can send money to the wrong person.</p></div></li>
+    </ul>
+
+    <h3 class="subhead">Tax credits and savings</h3>
+    <ul class="tasks">
+      <li class="task"><input type="checkbox" id="p37"><div class="body"><span class="do">Claim the Child Tax Credit</span><span class="pill ongoing">At tax time</span><p>Each qualifying child can earn you a federal Child Tax Credit, worth up to about $2,000 per child (the amount can change, so check the IRS). <strong>Why:</strong> it directly lowers your tax bill, and part of it can come back as a refund, but only if you file and claim the child.</p><div class="src">Source: <a href="https://www.irs.gov/">irs.gov</a></div></div></li>
+      <li class="task"><input type="checkbox" id="p38"><div class="body"><span class="do">Claim the Child and Dependent Care Credit</span><span class="pill ongoing">At tax time</span><p>If you pay for childcare so you can work or look for work, a federal credit covers part of that cost. <strong>Why:</strong> it is real money back on daycare, though you cannot use the same dollars for both this credit and a Dependent Care FSA, so plan which to use.</p><div class="src">Source: <a href="https://www.irs.gov/">irs.gov</a></div></div></li>
+      <li class="task"><input type="checkbox" id="p39"><div class="body"><span class="do">Check if you qualify for the Earned Income Tax Credit</span><span class="pill ongoing">At tax time</span><p>The EITC is a refundable federal credit for low- and moderate-income workers, and it grows once you have a child. <strong>Why:</strong> it can be worth thousands, and you have to file a return to get it even if you owe no tax.</p><div class="src">Source: <a href="https://www.irs.gov/">irs.gov</a></div></div></li>
+      <li class="task"><input type="checkbox" id="p40"><div class="body"><span class="do">Apply for the Washington Working Families Tax Credit</span><span class="pill ongoing">After you file federal taxes</span><p>This is a state cash refund of up to about $1,300, modeled on the federal EITC. You apply through the Department of Revenue after filing your federal return. <strong>Why:</strong> it is separate money on top of any federal credit, and families filing with an ITIN, including immigrant families, can qualify.</p><div class="src">Source: <a href="https://workingfamiliescredit.wa.gov/">workingfamiliescredit.wa.gov</a></div></div></li>
+      <li class="task"><input type="checkbox" id="p41"><div class="body"><span class="do">Get free help to claim all of this</span><span class="pill ongoing">Tax season</span><p>Free tax preparation through United Way and VITA can file your return and these credits at no cost. <strong>Why:</strong> the credits are only worth it if they are claimed correctly, and trained volunteers do it for free.</p><div class="src">Source: <a href="https://www.uwkc.org/need-help/tax-help/">uwkc.org tax help</a></div></div></li>
+    </ul>
+
+  </div>
+</section>
+
+<!-- AT THE HOSPITAL -->
+<section class="stage" id="hospital">
+  <div class="wrap">
+    <div class="stage-head">
+      <h2>At the hospital</h2>
+      <span class="stage-when">Birth through discharge</span>
+    </div>
+    <ul class="tasks">
+
+      <li class="task">
+        <input type="checkbox" id="h1">
+        <div class="body">
+          <span class="do">Complete the birth-certificate paperwork and request the baby's Social Security number</span><span class="pill soon">Before you leave</span>
+          <p>The hospital files your baby's birth registration. While doing that paperwork, you can also request a Social Security number through the "enumeration at birth" process, it's free, and the card is mailed to you. You order certified copies of the birth certificate separately afterward (see First 2 weeks).</p>
+          <div class="src">Source: <a href="https://www.ssa.gov/ssnumber/">ssa.gov/ssnumber</a> · <a href="https://doh.wa.gov/licenses-permits-and-certificates/vital-records">doh.wa.gov vital records</a></div>
+        </div>
+      </li>
+
+      <li class="task">
+        <input type="checkbox" id="h2">
+        <div class="body">
+          <span class="do">Newborn blood-spot screening</span><span class="pill deadline">By 48 hours</span>
+          <p>A small heel-stick blood sample screens your baby for a set of rare but serious conditions that are far easier to treat when caught early. Washington requires the first screen by 48 hours of age; the hospital usually does this for you.</p>
+          <div class="src">Source: <a href="https://doh.wa.gov/you-and-your-family/infants-and-children/newborn-screening">doh.wa.gov newborn screening</a></div>
+        </div>
+      </li>
+
+      <li class="task">
+        <input type="checkbox" id="h3">
+        <div class="body">
+          <span class="do">Newborn hearing screening</span><span class="pill soon">Before discharge</span>
+          <p>A quick, painless hearing screen is done before you go home (or by about 1 month). If your baby doesn't pass, follow-up testing by 3 months and support by 6 months help catch and address hearing loss early.</p>
+          <div class="src">Source: <a href="https://doh.wa.gov/you-and-your-family/infants-and-children/health-and-safety/early-hearing-detection-and-support">doh.wa.gov hearing screening</a></div>
+        </div>
+      </li>
+
+      <li class="task">
+        <input type="checkbox" id="h4">
+        <div class="body">
+          <span class="do">Leave in a properly installed car seat</span><span class="pill deadline">Day of discharge</span>
+          <p>Washington law requires children under age 2 to ride rear-facing in an approved car seat. Have it installed and checked before discharge so the trip home is safe and legal.</p>
+          <div class="src">Source: <a href="https://wacarseats.com/">wacarseats.com</a></div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</section>
+
+<!-- FIRST 2 WEEKS -->
+<section class="stage" id="twoweeks">
+  <div class="wrap">
+    <div class="stage-head">
+      <h2>The first two weeks</h2>
+      <span class="stage-when">Days 1–14</span>
+    </div>
+    <ul class="tasks">
+
+      <li class="task">
+        <input type="checkbox" id="w1">
+        <div class="body">
+          <span class="do">First well-child visit</span><span class="pill deadline">3–5 days old</span>
+          <p>Your baby's first checkup usually happens within a few days of coming home. The doctor checks weight, feeding, and jaundice, and answers your early questions. Schedule it before you leave the hospital if you can.</p>
+          <div class="src">Source: <a href="https://www.healthychildren.org/English/family-life/health-management/Pages/Well-Child-Care-A-Check-Up-for-Success.aspx">healthychildren.org (AAP)</a></div>
+        </div>
+      </li>
+
+      <li class="task">
+        <input type="checkbox" id="w2">
+        <div class="body">
+          <span class="do">Second newborn screening</span><span class="pill deadline">7–14 days old</span>
+          <p>Washington recommends a repeat blood-spot screen a week or two after birth to catch conditions the first test can miss. Your pediatrician's office usually handles this at an early visit.</p>
+          <div class="src">Source: <a href="https://doh.wa.gov/you-and-your-family/infants-and-children/newborn-screening">doh.wa.gov newborn screening</a></div>
+        </div>
+      </li>
+
+      <li class="task">
+        <input type="checkbox" id="w3">
+        <div class="body">
+          <span class="do">Confirm your baby is on a health plan</span><span class="pill soon">Within ~30 days</span>
+          <p>Add your newborn to your insurance, or confirm Apple Health coverage. Babies of Apple Health parents are usually enrolled automatically, but it's worth checking so visits and vaccines are covered from the start.</p>
+          <div class="src">Source: <a href="https://www.hca.wa.gov/">hca.wa.gov</a></div>
+        </div>
+      </li>
+
+      <li class="task">
+        <input type="checkbox" id="w4">
+        <div class="body">
+          <span class="do">Order certified copies of the birth certificate</span><span class="pill ongoing">When you need it</span>
+          <p>You'll need a certified birth certificate for things like benefits and travel. In Washington you order copies yourself, about $25 by mail (allow several weeks), faster online for a higher fee, or often same day in person at many county health offices.</p>
+          <div class="src">Source: <a href="https://doh.wa.gov/licenses-permits-and-certificates/vital-records/ordering-vital-record">doh.wa.gov ordering records</a></div>
+        </div>
+      </li>
+
+      <li class="task"><input type="checkbox" id="w5"><div class="body"><span class="do">Know the newborn warning signs</span><span class="pill deadline">Know now</span><p>Call your doctor or go to the ER for a rectal temperature of 100.4°F (38°C) or higher in a baby under about 3 months, trouble breathing, refusing to feed, far fewer wet diapers than usual, or yellowing skin or eyes (jaundice). <strong>Why:</strong> a newborn's immune system is immature, so a fever or these signs need fast attention.</p><div class="src">Source: <a href="https://www.healthychildren.org/">healthychildren.org</a></div></div></li>
+      <li class="task"><input type="checkbox" id="w6"><div class="body"><span class="do">Start vitamin D drops if you breastfeed</span><span class="pill ongoing">From the first days</span><p>Breastfed and partly breastfed babies usually need a daily vitamin D supplement (commonly 400 IU). <strong>Why:</strong> breast milk is low in vitamin D, which babies need for healthy bones. Ask your pediatrician about the product and dose.</p><div class="src">Source: <a href="https://www.healthychildren.org/">healthychildren.org</a></div></div></li>
+      <li class="task"><input type="checkbox" id="w7"><div class="body"><span class="do">Care for the umbilical cord (and circumcision, if applicable)</span><span class="pill ongoing">Until it heals</span><p>Keep the cord stump clean and dry, fold the diaper below it, and stick to sponge baths until it falls off on its own in about one to two weeks. If your baby was circumcised, follow the care steps you were given. Call the doctor if you see spreading redness, pus, or a bad smell.</p></div></li>
+      <li class="task"><input type="checkbox" id="w8"><div class="body"><span class="do">Track feeds and diapers</span><span class="pill ongoing">Early weeks</span><p>Jot down feedings and wet and dirty diapers, on paper or an app. <strong>Why:</strong> steady wet diapers and weight gain are how you and the doctor know your baby is getting enough to eat.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- FIRST 2 MONTHS -->
+<section class="stage" id="twomonths">
+  <div class="wrap">
+    <div class="stage-head">
+      <h2>The first two months</h2>
+      <span class="stage-when">Weeks 2–8</span>
+    </div>
+    <ul class="tasks">
+
+      <li class="task">
+        <input type="checkbox" id="m1">
+        <div class="body">
+          <span class="do">File your Paid Family &amp; Medical Leave claim</span><span class="pill deadline">Mind the deadline</span>
+          <p>Once your leave has begun, file your claim with the state. Benefits aren't automatic, and claims must be submitted within a set window, so don't wait. Keep weekly claims up to date to keep payments coming.</p>
+          <div class="src">Source: <a href="https://paidleave.wa.gov/">paidleave.wa.gov</a></div>
+        </div>
+      </li>
+
+      <li class="task">
+        <input type="checkbox" id="m2">
+        <div class="body">
+          <span class="do">1-month and 2-month well-child visits and vaccines</span><span class="pill soon">1 &amp; 2 months</span>
+          <p>These checkups track growth and start your baby's routine immunizations. In Washington, recommended childhood vaccines are provided at no cost for the vaccine itself through enrolled providers; ask your clinic about any administration fee.</p>
+          <div class="src">Source: <a href="https://www.cdc.gov/vaccines/imz-schedules/index.html">cdc.gov vaccine schedule</a> · <a href="https://doh.wa.gov/you-and-your-family/immunization">doh.wa.gov immunization</a></div>
+        </div>
+      </li>
+
+      <li class="task"><input type="checkbox" id="m3"><div class="body"><span class="do">Go to the birthing parent's postpartum checkup</span><span class="pill soon">~6 weeks after birth</span><p>Book and keep the parent's own follow-up visit around six weeks. It checks physical recovery and includes a mood screening. <strong>Why:</strong> postpartum problems, including mood changes, are common and treatable, and they are easy to overlook when all the attention is on the baby.</p><div class="src">Source: <a href="https://perinatalsupport.org/">perinatalsupport.org</a></div></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 3-12 MONTHS -->
+<section class="stage" id="year">
+  <div class="wrap">
+    <div class="stage-head">
+      <h2>Three to twelve months</h2>
+      <span class="stage-when">The rest of year one</span>
+    </div>
+    <ul class="tasks">
+
+      <li class="task">
+        <input type="checkbox" id="y1">
+        <div class="body">
+          <span class="do">Well-child visits at 4, 6, 9, and 12 months</span><span class="pill ongoing">On schedule</span>
+          <p>Regular checkups continue on the standard schedule, with more vaccines and developmental check-ins along the way. Your pediatrician follows the recommended childhood schedule and will tell you what's due at each visit.</p>
+          <div class="src">Source: <a href="https://www.healthychildren.org/English/family-life/health-management/Pages/Well-Child-Care-A-Check-Up-for-Success.aspx">healthychildren.org (AAP)</a></div>
+        </div>
+      </li>
+
+      <li class="task">
+        <input type="checkbox" id="y2">
+        <div class="body">
+          <span class="do">Lock in childcare and apply for help paying, if eligible</span><span class="pill soon">Before you return to work</span>
+          <p>Confirm your childcare spot well before your leave ends. If money is tight, the Working Connections Child Care subsidy helps eligible working or studying families (generally with income below 60% of the state median); you pay a small copay and the state covers the rest.</p>
+          <div class="src">Source: <a href="https://www.dcyf.wa.gov/services/earlylearning-childcare/getting-help/wccc">dcyf.wa.gov child care</a> · apply 844-626-8687</div>
+        </div>
+      </li>
+
+      <li class="task">
+        <input type="checkbox" id="y3">
+        <div class="body">
+          <span class="do">Keep WIC and benefits current</span><span class="pill ongoing">Ongoing</span>
+          <p>WIC continues through age 5, and Apple Health coverage is renewed periodically. Watch for renewal notices so food benefits and coverage don't lapse.</p>
+          <div class="src">Source: <a href="https://doh.wa.gov/you-and-your-family/wic">doh.wa.gov/wic</a> · <a href="https://www.wahealthplanfinder.org/">wahealthplanfinder.org</a></div>
+        </div>
+      </li>
+
+      <li class="task"><input type="checkbox" id="y4"><div class="body"><span class="do">Schedule the first dental visit</span><span class="pill soon">By the first birthday</span><p>Plan a first dentist visit when the first tooth appears or by age 1. Wipe gums and brush new teeth with a tiny smear of fluoride toothpaste, and avoid putting your baby to bed with a bottle. <strong>Why:</strong> baby teeth can get cavities, and early habits protect them.</p><div class="src">Source: <a href="https://www.healthychildren.org/">healthychildren.org</a></div></div></li>
+      <li class="task"><input type="checkbox" id="y5"><div class="body"><span class="do">Start solids around 6 months</span><span class="pill soon">~6 months</span><p>With your pediatrician's okay, begin iron-rich first foods around 6 months, and introduce common allergens like peanut and egg early rather than holding off. Skip honey and cow's milk as a drink until age 1, and avoid choking hazards such as whole grapes, nuts, and hard chunks. <strong>Why:</strong> good timing and variety support nutrition and may lower allergy risk.</p><div class="src">Source: <a href="https://www.healthychildren.org/">healthychildren.org</a></div></div></li>
+      <li class="task"><input type="checkbox" id="y6"><div class="body"><span class="do">Get a flu shot at 6 months and up</span><span class="pill soon">6 months+, yearly</span><p>Once your baby turns 6 months, they can get a yearly flu vaccine, and everyone in the household should get one too. <strong>Why:</strong> flu can be serious for babies, and vaccinated family members add a layer of protection.</p><div class="src">Source: <a href="https://www.cdc.gov/vaccines/">cdc.gov/vaccines</a></div></div></li>
+      <li class="task"><input type="checkbox" id="y7"><div class="body"><span class="do">Finish baby-proofing as your baby gets moving</span><span class="pill deadline">By crawling</span><p>Crawling and pulling up arrive fast. Lower the crib mattress, put up stair gates, secure cords and small objects, and never leave your baby alone in or near water, even for a second. <strong>Why:</strong> most home injuries become possible the moment a baby is mobile.</p><div class="src">Source: <a href="https://www.healthychildren.org/">healthychildren.org</a></div></div></li>
+      <li class="task"><input type="checkbox" id="y8"><div class="body"><span class="do">Watch development, and ask early if something worries you</span><span class="pill ongoing">Ongoing</span><p>Notice milestones like rolling, sitting, babbling, and responding to their name. If anything concerns you, request a free developmental evaluation through Washington's Early Support for Infants and Toddlers, with no doctor's referral needed. <strong>Why:</strong> early help works best, and there is no harm in checking.</p><div class="src">Source: <a href="https://www.dcyf.wa.gov/services/child-development-supports/esit">dcyf.wa.gov ESIT</a></div></div></li>
+      <li class="task"><input type="checkbox" id="y9"><div class="body"><span class="do">Read, talk, sing, and play every day</span><span class="pill ongoing">Daily</span><p>Everyday talking, reading, singing, and floor play build your baby's brain and your bond, and free library story times make an easy routine. <strong>Why:</strong> back-and-forth interaction is what drives early language and learning.</p><div class="src">Source: <a href="https://www.healthychildren.org/">healthychildren.org</a></div></div></li>
+      <li class="task"><input type="checkbox" id="y10"><div class="body"><span class="do">Move up car seats only when outgrown</span><span class="pill ongoing">By height or weight</span><p>Keep your baby rear-facing, and move to the next seat only when they pass the height or weight limit of the current one, not by age alone. <strong>Why:</strong> rear-facing is safest, and a seat is outgrown by size, not by a birthday.</p><div class="src">Source: <a href="https://wacarseats.com/">wacarseats.com</a></div></div></li>
+      <li class="task"><input type="checkbox" id="y11"><div class="body"><span class="do">Plan the move off bottles near the first birthday</span><span class="pill soon">~12 months</span><p>Around 12 months, start offering a cup, begin phasing out bottles, and ask your pediatrician about whole milk if you are weaning from formula. <strong>Why:</strong> an early, gradual switch is easier on teeth and habits.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- NICE TO HAVE -->
+<section class="stage" id="niceto">
+  <div class="wrap">
+    <div class="stage-head">
+      <h2>Nice to have (not essential)</h2>
+      <span class="stage-when">Only if you want them</span>
+    </div>
+    <p class="stage-note">None of these are required, and plenty of families skip them. Wait and see what your baby actually likes before spending, and borrow or buy secondhand where you can.</p>
+    <ul class="tasks">
+      <li class="task optional"><div class="body"><span class="do">Swing or bouncer</span><p>A safe spot to set the baby down for a few minutes. Never let a baby sleep in one.</p></div></li>
+      <li class="task optional"><div class="body"><span class="do">Play mat or activity gym</span><p>Gives the baby somewhere to do tummy time and reach for toys.</p></div></li>
+      <li class="task optional"><div class="body"><span class="do">Baby carrier or wrap</span><p>Keeps your hands free, and many babies settle in it. Check that it supports the hips and keeps the face clear.</p></div></li>
+      <li class="task optional"><div class="body"><span class="do">Pacifiers</span><p>Some babies take them, some do not. Offer once feeding is going well.</p></div></li>
+      <li class="task optional"><div class="body"><span class="do">White-noise machine and night light</span><p>Can help with sleep and night feedings. A phone app works too.</p></div></li>
+      <li class="task optional"><div class="body"><span class="do">Bottle warmer and extra bottles</span><p>Convenient, though a cup of warm water does the same job.</p></div></li>
+      <li class="task optional"><div class="body"><span class="do">Diaper bag backpack</span><p>Any bag works, but a dedicated one keeps supplies organized.</p></div></li>
+      <li class="task optional"><div class="body"><span class="do">Baby book or keepsakes</span><p>For tracking milestones and saving memories, if that is your thing.</p></div></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h2>About this roadmap</h2>
+    <p>Built as a free, plain-language guide for Washington families. Every step links to an official state or national source, please confirm current amounts, income limits, and deadlines there, since they change. This guide is independent and is not affiliated with any of the organizations listed.</p>
+    <p style="margin-top:12px;">Not medical, legal, or financial advice. For health questions, talk with your pediatrician. In an emergency, call <code>911</code>; for a mental-health crisis, call or text <code>988</code>.</p>
+    <p style="margin-top:12px;">Last updated June 2026.</p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var boxes = document.querySelectorAll('li.task input[type=checkbox]');
+    var label = document.getElementById('progress-label');
+    var fill = document.getElementById('progress-fill');
+    var total = boxes.length;
+    function update(){
+      var done = 0;
+      for (var i=0;i<boxes.length;i++){ if (boxes[i].checked) { done++; } }
+      if (label) { label.textContent = done + ' of ' + total + ' done'; }
+      if (fill) { fill.style.width = total ? (done/total*100)+'%' : '0%'; }
+    }
+    for (var i=0;i<boxes.length;i++){ boxes[i].addEventListener('change', update); }
+    update();
+  })();
+</script>
+
+</body>
+</html>
